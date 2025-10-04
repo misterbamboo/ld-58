@@ -18,6 +18,8 @@
 - Follow the established project structure
 
 ## Project Structure
+- `autoload/` - Global singletons (autoload scripts)
+  - `message_bus.gd` - Global pub/sub system for decoupled communication
 - `clouds/` - Cloud assets, scripts, and prefabs
   - `cloud.gd` - Individual cloud behavior (movement with configurable direction, squish animation)
   - `cloud_spawner.gd` - Spawns and manages random ambient clouds continuously
@@ -53,6 +55,14 @@
   - Subtle squish animation with inverse x/y scale oscillation
   - Gentle rotation synchronized with squish animation
   - Configurable speed ranges, squish duration, and rotation amount via exports
+
+- **MessageBus System**
+  - Global autoload singleton for decoupled event communication
+  - Topic-based pub/sub pattern replaces signals
+  - `MessageBus.publish(topic, data)` - Emit events with dictionary payload
+  - `MessageBus.subscribe(topic, callback)` - Listen to topics
+  - `MessageBus.unsubscribe(topic, callback)` - Stop listening
+  - Used for: `shape_vanished`, `highlight_clicked` events
 
 - **Interactive Cloud Sync** (legacy)
   - Synchronized cloud groups with clickable interactions

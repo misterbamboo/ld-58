@@ -3,8 +3,6 @@ class_name CloudHighlight
 
 @export var highlight_duration: float = 2.5
 
-signal highlight_clicked
-
 var is_mouse_over: bool = false
 var line_min_x: float
 var line_max_x: float
@@ -34,7 +32,7 @@ func _input(event):
 		if parent_shape and is_mouse_over:
 			var is_in_time_window = parent_shape.internal_time >= -highlight_duration and parent_shape.internal_time <= highlight_duration
 			if is_in_time_window:
-				highlight_clicked.emit()
+				MessageBus.publish("highlight_clicked", {"highlight": self, "shape": parent_shape})
 
 func precompute_line_bounds():
 	if points.size() < 2:

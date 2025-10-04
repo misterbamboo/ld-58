@@ -15,6 +15,10 @@ run/main_scene="uid://ddksst3cw4wam"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MessageBus="*res://autoload/message_bus.gd"
+
 [dotnet]
 
 project/assembly_name="Florence Memories"

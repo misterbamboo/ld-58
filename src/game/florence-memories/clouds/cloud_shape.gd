@@ -4,8 +4,6 @@ class_name CloudShape
 @export var offscreen_margin: float = 100.0
 @export var time_offset: float = -20.0
 
-signal shape_vanished
-
 var clouds: Array[Cloud] = []
 var screen_size: Vector2
 var has_vanished: bool = false
@@ -32,7 +30,7 @@ func _process(delta):
 
 	if not has_vanished and are_all_clouds_offscreen():
 		has_vanished = true
-		shape_vanished.emit()
+		MessageBus.publish("shape_vanished", {"shape": self})
 		queue_free()
 
 func update_cloud_positions():
