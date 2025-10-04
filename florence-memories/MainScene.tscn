@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddksst3cw4wam"]
+
+[ext_resource type="PackedScene" uid="uid://dwafuug7oubye" path="res://dog-1/dog_cloud.tscn" id="1_3mqji"]
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Dog_cloud" parent="." instance=ExtResource("1_3mqji")]
+position = Vector2(591, 122)
