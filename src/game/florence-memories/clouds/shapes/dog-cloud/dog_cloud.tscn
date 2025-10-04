@@ -1,15 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwafuug7oubye"]
+[gd_scene load_steps=8 format=3 uid="uid://dwafuug7oubye"]
 
-[ext_resource type="Script" uid="uid://ctcvgoye1anqi" path="res://clouds/cloud_sync.gd" id="1_3np7l"]
+[ext_resource type="Script" path="res://clouds/cloud_shape.gd" id="1_shape"]
 [ext_resource type="Texture2D" uid="uid://dgborsbspousc" path="res://clouds/shapes/dog-cloud/dog-1.png" id="2_yp0rm"]
 [ext_resource type="Texture2D" uid="uid://cjmyisssag5x4" path="res://clouds/assets/cloud-1-default.png" id="3_xgx6p"]
 [ext_resource type="Script" uid="uid://drlblwp0thwob" path="res://clouds/cloud.gd" id="4_g377n"]
 [ext_resource type="Texture2D" uid="uid://dy66uomqcgts5" path="res://clouds/assets/cloud-2-oval.png" id="5_tuqjo"]
 [ext_resource type="Texture2D" uid="uid://ccrjx6afky5xr" path="res://clouds/assets/cloud-3-vertical.png" id="6_y10w6"]
+[ext_resource type="Script" path="res://clouds/cloud_highlight.gd" id="7_highlight"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("highlight_line")]
-script = ExtResource("1_3np7l")
-highlight_line = NodePath("HighlighLines")
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_shape")
 
 [node name="Dog1" type="Sprite2D" parent="."]
 visible = false
@@ -87,10 +87,12 @@ scale = Vector2(0.10742188, 0.107421905)
 texture = ExtResource("5_tuqjo")
 script = ExtResource("4_g377n")
 
-[node name="HighlighLines" type="Line2D" parent="."]
+[node name="HighlightLines" type="Line2D" parent="."]
 points = PackedVector2Array(-32, 70, -36, 45, -34, 25, -44, -2, -62, -21, -83, -27, -88, -39, -69, -49, -63, -64, -35, -65, -7, -26, 39, -25, 57, -38, 78, -74, 73, -30, 59, 6, 82, 58, 77, 76, 61, 83, 66, 66, 45, 50, 36, 31, -5, 35, -22, 59)
 closed = true
 width = 8.745
 default_color = Color(0, 0.6117647, 1, 1)
 joint_mode = 2
 antialiased = true
+script = ExtResource("7_highlight")
+
