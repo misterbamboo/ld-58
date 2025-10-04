@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddksst3cw4wam"]
+[gd_scene load_steps=6 format=3 uid="uid://ddksst3cw4wam"]
 
 [ext_resource type="PackedScene" uid="uid://dwafuug7oubye" path="res://clouds/shapes/dog-cloud/dog_cloud.tscn" id="1_3mqji"]
 [ext_resource type="Script" uid="uid://cwchnxb0a6n5d" path="res://clouds/cloud_spawner.gd" id="2_rf2cd"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_default.tscn" id="3_a814b"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_oval.tscn" id="4_5crlr"]
+[ext_resource type="Script" uid="uid://b67fk8xsou4j8" path="res://clouds/shape_spawner.gd" id="5_rf2cd"]
 
 [node name="MainScene" type="Node2D"]
 
@@ -18,3 +19,8 @@ max_spawn_interval = 10.0
 spawn_y_min = 10.0
 spawn_y_max = 300.0
 metadata/_custom_type_script = "uid://cwchnxb0a6n5d"
+
+[node name="ShapeSpawner" type="Node2D" parent="."]
+script = ExtResource("5_rf2cd")
+shape_scenes = Array[PackedScene]([ExtResource("1_3mqji")])
+metadata/_custom_type_script = "uid://b67fk8xsou4j8"
