@@ -10,6 +10,10 @@
   - One thing per method
   - Command-Query Separation (CQS)
   - SOLID principles
+- **Encapsulation**: Never access internal variables of another class directly
+  - Always call public methods to get values (e.g., `get_current_time()` instead of `internal_time`)
+  - Prevents coupling to internal implementation details
+  - Applies to parent classes, child classes, and any class references
 - **Priority**: Functionality over perfection (48h game jam timeline)
 
 ## Development Guidelines
@@ -21,123 +25,101 @@
 - `autoload/` - Global singletons (autoload scripts)
   - `message_bus.gd` - Global pub/sub system for decoupled communication
 - `clouds/` - Cloud assets, scripts, and prefabs
-  - `cloud.gd` - Individual cloud behavior with pre-computed phase system, drift support for shape sub-clouds
-  - `cloud_phase.gd` - CloudPhase enum definition (FADE_IN, MOVING_IN, MOVING_OUT, FADE_OUT, VANISHED)
+  - `cloud.gd` - Individual cloud with simple time-based movement and position lerping
+  - `cloud_alpha.gd` - Sprite2D component handling fade in/out based on parent cloud's time
+  - `cloud_squish.gd` - Node2D component handling squish animation and rotation
   - `cloud_spawner.gd` - Unified spawner for both individual clouds and cloud shapes
-  - `cloud_shape.gd` - Pre-computed phase-based shape lifecycle with drift system
+  - `cloud_shape.gd` - Timer coordinator and position guide for child clouds (forms shapes)
   - `cloud_highlight.gd` - Interactive Line2D for shape hover/click detection with time window
   - `prefabs/` - Reusable cloud scene variants (default, oval, vertical)
   - `shapes/` - Cloud shape compositions (e.g., dog-cloud)
 
 ## Key Features
-- **Unified Cloud Spawner System**
-  - Single spawner handles both individual clouds and cloud shapes
-  - **Unified Limit**: Single `max_clouds` limit (default 10) for both types combined
-    - CloudShape counts as 1 cloud (regardless of sub-cloud count)
-    - Individual cloud counts as 1 cloud
-  - **Spawning Strategy**: Hybrid (timer + event-driven)
-    - Timer-based: spawns every 2-6s intervals if below max
-    - Event-driven: spawns replacement when any entity vanishes (via MessageBus)
-    - **Priority**: If no shapes on screen, spawn CloudShape next (ensures 1+ shapes always present)
-  - **Spawn Behavior**: All entities spawn on-screen
-    - Random x position (0 to screen_width)
-    - Random y position (spawn_y_min to spawn_y_max)
-    - **Direction based on spawn position:**
-      - Left half (x < screen_width/2): move RIGHT (direction = 1)
-      - Right half (x >= screen_width/2): move LEFT (direction = -1)
-      - Always moves through screen center
-  - **Individual Clouds**:
-    - Phase system: FADE_IN → MOVING_IN → MOVING_OUT → FADE_OUT (no STABLE phase)
-    - MOVING_IN duration: 0s (already at target)
-    - MOVING_OUT duration: remaining time after fades (drifts across screen)
-    - Lifespan: 30-90s, Speed: 2.0-3.0 px/s (consistent movement feel)
-  - **Cloud Shapes**:
-    - Phase system: FADE_IN → MOVING_IN → MOVING_OUT → FADE_OUT (same as individual clouds)
-    - First shape pre-progressed to -lifespan/4 for immediate visibility
-    - Highlight window: -2.5s to +2.5s around time 0 (independent of phases)
-    - Lifespan: 30-90s, Speed: 2.0-3.0 px/s (inherited from sub-clouds)
-  - Export groups: Individual Clouds, Cloud Shapes, Spawn Limits, Spawn Settings
 
-- **Individual Cloud System (Pre-computed Phases)**
-  - **CloudPhase Enum**: FADE_IN → MOVING_IN → MOVING_OUT → FADE_OUT → VANISHED
-  - All phases pre-computed at `_ready()` based on durations and target positions
-  - **No STABLE phase** - movement is continuous throughout lifecycle
-  - **Lifespan: 30-90s** (total duration, distributed across phases)
-  - **Speed: 2.0-3.0 px/s** (narrow range for consistent movement feel)
-  - **Phase Durations**:
-    - FADE_IN: 3-8s (gradual alpha increase at spawn position)
-    - MOVING_IN: 0s (already at target position)
-    - MOVING_OUT: Remaining time after fades (drifts across screen)
-    - FADE_OUT: 3-8s (gradual alpha decrease while drifting)
-  - **Movement System**:
-    - Pre-computed start/target/end positions based on speed, direction, durations
-    - Continuous linear interpolation (no acceleration, no pauses)
-    - If managed by CloudShape: follows parent's drift offset
-    - If individual: uses static pre-computed positions
-  - **Event System**: Publishes "cloud_vanished" event when disposed (triggers replacement spawn)
-  - Multiple cloud variants for visual variety (3 types: default, oval, vertical)
-  - Auto-dispose at VANISHED phase
+### Unified Cloud Spawner System
+- Single spawner handles both individual clouds and cloud shapes
+- **Initial Spawn**: 1 shape + 9 individual clouds on scene start
+- **Continuous Spawning**: Timer-based (2-6s intervals)
+  - Default: spawns individual clouds
+  - Shape replacement: When shape vanishes, flag is set to spawn shape on next interval
+- **Spawn Behavior**: All entities spawn on-screen with meeting point
+  - Random x position (0 to screen_width)
+  - Random y position (spawn_y_min to spawn_y_max)
+  - **Direction based on spawn position:**
+    - Left half (x < screen_width/2): move RIGHT (direction = 1)
+    - Right half (x >= screen_width/2): move LEFT (direction = -1)
+- **Unified Initialization**: `initialize(meet_at_pos, direction, lifespan, meet_in_time)`
+  - Same signature for Cloud and CloudShape
+  - Individual clouds: `meet_in_time = 0` (spawn at meeting point)
+  - Cloud shapes: `meet_in_time = lifespan/2` (converge at middle of lifetime)
+  - First shape: Special `set_first_shape_time()` called to set `internal_time = -lifespan/4` (pre-progressed for immediate visibility)
 
-- **Cloud Shape System (Pre-computed Phase System with Drift)**
-  - Organic shape lifecycle with lifespan-based timing (30-90s, same as individual clouds)
-  - **Architecture: Pre-computed Phases (Clean Code)**
-    - All phase boundaries calculated once at `_ready()`
-    - Target positions set BEFORE phase computation for sub-clouds
-    - Phase data structure stores: type, t_start, t_end, duration, start/end alpha/position
-    - Runtime: Simple phase lookup + linear lerp based on progress
-    - Small methods (4-10 lines), Single Responsibility Principle, CQS
-    - Guaranteed continuity: each phase's end values = next phase's start values
-  - **Phase-Based Timeline:**
-    - Lifespan randomly chosen (e.g., 50s)
-    - internal_time starts at -lifespan/2 (e.g., -25s) for normal shapes
-    - **First shape starts at -lifespan/4** (pre-progressed for immediate visibility)
-    - **Time 0 = PERFECT CONVERGENCE**: alpha=1, rotation=0, position=initial_position + drift
-    - **Highlight window: -2.5s to +2.5s** (time-based, not phase-based)
-  - **Drift System (Organic Movement)**:
-    - Shape slowly drifts in its movement direction (configurable drift_speed, default 0.5 px/s)
-    - Drift offset accumulates over time: `drift_offset += Vector2(drift_speed * direction, 0) * delta`
-    - All sub-clouds follow parent's drift offset: `position = base_position + drift`
-    - Creates gentle, organic movement during highlight window and all phases
-    - Sub-clouds stay synchronized relative to drifting shape center
-  - **Sub-cloud Phase Management:**
-    - FADE_IN phase: 8s duration with randomized start offsets (staggered appearance + movement)
-    - MOVING_IN phase: Continuous lerp toward zero position while following drift
-    - MOVING_OUT phase: Continuous lerp away from zero position while following drift
-    - FADE_OUT phase: 8s duration with randomized start offsets (staggered disappearance + movement)
-    - VANISHED: Shape disposed when all sub-clouds invisible
-    - **No STABLE phase** - movement is continuous, highlight window is just a time range
-  - **Guaranteed Time 0 Convergence:**
-    - Within 0.1s of time 0, all clouds forced to initial_position (+ drift offset)
-    - Rotation override active: sets rotation=0
-    - Alpha always 1.0 during highlight window
-  - **Linear Interpolation (No Acceleration):**
-    - Progress = (internal_time - t_start) / duration
-    - All lerps use clamped progress (0.0 to 1.0)
-    - Duration-normalized: longer phases don't move faster
-  - **Natural Camouflage:**
-    - Shapes blend seamlessly with ambient clouds (both use CloudPhase system)
-    - Player cannot distinguish shape formation from ambient cloud spawning
-  - **Event System:**
-    - `shape_spawned` event published when new shape appears
-    - `shape_vanished` event published when shape fully disappears
-  - Synchronized timing: CloudShape manages shared `internal_time` for all sub-clouds
-  - Sub-clouds inherit movement from parent (drift) while executing their own phases
-  - Interactive highlight system shows Line2D outline on mouse hover during time window
-  - Modular design: CloudShape (lifecycle + timing + drift) + CloudHighlight (interaction)
+### Individual Cloud System (Time-Based Movement)
+- **No phase enum** - components self-manage based on cloud's timer
+- **Lifespan: 30-90s**, **Speed: 2.0-3.0 px/s** (randomized per cloud in `initialize()`)
+- **Movement System**:
+  - Calculates `start_position` and `end_position` based on speed, direction, and meeting time
+  - `position = lerp(start_position, end_position, (current_time - start_time) / lifespan)`
+  - Smooth continuous movement across screen
+- **Component-Based Architecture**:
+  - `CloudAlpha`: Fades in (first 3s), stays visible, fades out (last 3s)
+  - `CloudSquish`: Handles subtle squish animation and rotation
+  - Components call `cloud.get_current_time()` for coordination
+- **Dual Behavior**:
+  - **Individual mode** (`is_managed_by_shape = false`):
+    - Updates own `internal_time` in `_process(delta)`
+    - Uses own position calculated via lerp
+    - Publishes `cloud_vanished` event and calls `queue_free()` when lifespan ends
+  - **Managed mode** (`is_managed_by_shape = true`):
+    - Uses parent CloudShape's `internal_time` via `get_current_time()`
+    - Position set to `parent_shape.position` (parent already calculated meeting point)
+    - Sets `visible = false` when lifespan ends (parent handles destruction)
 
-- **Cloud Behavior**
-  - Pre-computed movement phases (start → target → end positions)
-  - Subtle squish animation with inverse x/y scale oscillation
-  - Gentle rotation synchronized with squish animation
-  - Configurable speed ranges, squish duration, and rotation amount via exports
-  - Dual behavior mode:
-    - **Individual clouds**: Static pre-computed phases
-    - **Shape sub-clouds**: Pre-computed phases + parent drift offset
+### Cloud Shape System (Timer Coordinator + Position Guide)
+- **Simple Architecture**: CloudShape = timer provider + position guide (no phase management)
+- **Lifespan: 30-90s**, **Drift Speed: 0.5 px/s**
+- **Timeline**:
+  - Starts at `internal_time = -lifespan/2`
+  - **First shape exception**: `set_first_shape_time()` sets `internal_time = -lifespan/4` (pre-progressed)
+  - **Time 0 = Meeting Point**: All child clouds converge to their local positions
+  - **Highlight window: -2.5s to +2.5s** around time 0
+  - Ends at `internal_time = lifespan/2`
+- **Movement**:
+  - CloudShape drifts across screen: `position = lerp(start_position, end_position, lifetime_progress)`
+  - Child clouds positioned at `parent_shape.position` (in managed mode)
+  - Creates organic moving formation
+- **Child Cloud Coordination**:
+  - Each child has `initial_position` (local offset in shape scene)
+  - Child initialized with: `cloud.initialize(cloud.get_initial_position(), direction, child_lifespan, meet_in_time)`
+  - Randomized child lifespans (0.7 × min_lifespan to 1.0 × shape lifespan) for staggered fading
+  - Children marked as managed: `cloud.set_managed_by_shape(true)`
+- **Event System**:
+  - `shape_spawned` published when shape appears
+  - `shape_vanished` published when `internal_time >= lifespan/2`
+  - Spawner subscribes to `shape_vanished` to flag next spawn as shape
+- **Interactive Highlight**: Line2D outline on hover during highlight window (-2.5s to +2.5s)
 
-- **MessageBus System**
-  - Global autoload singleton for decoupled event communication
-  - Topic-based pub/sub pattern replaces signals
-  - `MessageBus.publish(topic, data)` - Emit events with dictionary payload
-  - `MessageBus.subscribe(topic, callback)` - Listen to topics
-  - `MessageBus.unsubscribe(topic, callback)` - Stop listening
-  - Used for: `cloud_vanished`, `shape_vanished`, `shape_spawned`, `highlight_clicked` events
+### Component Self-Management Pattern
+- **CloudAlpha** (Sprite2D component):
+  - Reads `cloud.get_current_time()`, `cloud.get_start_time()`, `cloud.get_lifespan()` for fade timing
+  - Calculates `time_elapsed = current_time - start_time`
+  - Fade in: First 3s, Fade out: Last 3s
+- **CloudSquish** (Node2D component):
+  - Independent squish animation (sin wave on scale/rotation)
+  - Respects `cloud.should_override_rotation()` → uses `cloud.get_target_rotation()` if true
+- **CloudHighlight** (Line2D component):
+  - Reads `parent_shape.get_internal_time()` for visibility window
+  - Visible only when mouse over AND within time window (-2.5s to +2.5s)
+  - Publishes `highlight_clicked` event on mouse click during window
+
+### MessageBus System
+- Global autoload singleton for decoupled event communication
+- Topic-based pub/sub pattern replaces signals
+- `MessageBus.publish(topic, data)` - Emit events with dictionary payload
+- `MessageBus.subscribe(topic, callback)` - Listen to topics
+- `MessageBus.unsubscribe(topic, callback)` - Stop listening
+- **Events in use**:
+  - `cloud_vanished` - Individual cloud reached end of lifespan
+  - `shape_vanished` - CloudShape reached end of lifetime (triggers shape replacement)
+  - `shape_spawned` - New CloudShape instantiated
+  - `highlight_clicked` - User clicked on shape highlight during time window
