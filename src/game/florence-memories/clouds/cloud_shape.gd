@@ -49,9 +49,6 @@ func initialize_child_clouds(meeting_pos: Vector2, spawn_direction: int, meet_in
 		var child_lifespan = randf_range(min_lifespan * 1.25, lifespan * 1.25)
 		cloud.initialize(Vector2.ZERO, spawn_direction, child_lifespan, meet_in_time)
 
-func set_first_shape_time():
-	internal_time = lifespan / 4.0
-
 func _process(delta):
 	if not clouds_initialized:
 		check_and_initialize_children()

@@ -12,7 +12,6 @@ var cloud_spawn_timer: float = 0.0
 var next_cloud_spawn_time: float = 0.0
 var screen_size: Vector2 = Vector2.ZERO
 var spawn_shape_next: bool = false
-var is_first_shape: bool = true
 
 var pending_clouds: Array[Cloud] = []
 var pending_shapes: Array[CloudShape] = []
@@ -113,10 +112,6 @@ func initialize_shape(shape: CloudShape):
 	var meet_in_time = lifespan / 2.0
 
 	shape.initialize(meet_at_pos, direction, lifespan, meet_in_time)
-
-	if is_first_shape:
-		shape.set_first_shape_time()
-		is_first_shape = false
 
 func _on_shape_vanished(data: Dictionary):
 	spawn_shape_next = true

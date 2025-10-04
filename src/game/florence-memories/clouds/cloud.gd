@@ -1,7 +1,7 @@
 class_name Cloud extends Node2D
 
-@export var min_speed: float = 2.0
-@export var max_speed: float = 3.0
+@export var min_speed: float = 3.0
+@export var max_speed: float = 10.0
 
 var speed: float
 var direction: int = 0
@@ -95,7 +95,7 @@ func set_managed_by_shape(managed: bool) -> void:
 
 func initialize(meeting_pos: Vector2, spawn_direction: int, spawn_lifespan: float, spawn_meet_in_time: float) -> void:
 	speed = randf_range(min_speed, max_speed)
-	direction = spawn_direction
+	direction = 1 if randf() > 0.5 else -1
 	lifespan = spawn_lifespan
 	meet_in_time = spawn_meet_in_time
 	internal_time = 0.0
