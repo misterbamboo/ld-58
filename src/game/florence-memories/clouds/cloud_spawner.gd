@@ -7,6 +7,8 @@ class_name CloudSpawner
 @export var max_cloud_interval: float = 6.0
 @export var spawn_y_min: float = -100.0
 @export var spawn_y_max: float = 100.0
+@export var min_lifespan: float = 30.0
+@export var max_lifespan: float = 90.0
 
 var cloud_spawn_timer: float = 0.0
 var next_cloud_spawn_time: float = 0.0
@@ -98,7 +100,7 @@ func initialize_cloud(cloud: Cloud):
 	var meet_at_pos = Vector2(spawn_x, spawn_y)
 
 	var direction = 1 if spawn_x < screen_size.x / 2.0 else -1
-	var lifespan = randf_range(30.0, 90.0)
+	var lifespan = randf_range(min_lifespan, max_lifespan)
 
 	cloud.initialize(meet_at_pos, direction, lifespan, 0.0)
 
@@ -108,7 +110,7 @@ func initialize_shape(shape: CloudShape):
 	var meet_at_pos = Vector2(spawn_x, spawn_y)
 
 	var direction = 1 if spawn_x < screen_size.x / 2.0 else -1
-	var lifespan = randf_range(30.0, 90.0)
+	var lifespan = randf_range(min_lifespan, max_lifespan)
 	var meet_in_time = lifespan / 2.0
 
 	shape.initialize(meet_at_pos, direction, lifespan, meet_in_time)
