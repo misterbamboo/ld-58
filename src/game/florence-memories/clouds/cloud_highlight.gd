@@ -21,7 +21,11 @@ func update_highlight_visibility():
 		visible = false
 		return
 
-	var is_in_time_window = parent_shape.internal_time >= -highlight_duration and parent_shape.internal_time <= highlight_duration
+	var current_time = parent_shape.get_internal_time()
+	var meeting_time = parent_shape.get_lifespan() / 2.0
+	var window_start = meeting_time - highlight_duration
+	var window_end = meeting_time + highlight_duration
+	var is_in_time_window = current_time >= window_start and current_time <= window_end
 	visible = is_in_time_window and is_mouse_over
 
 func _input(event):
@@ -30,7 +34,11 @@ func _input(event):
 	elif event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		var parent_shape = get_parent() as CloudShape
 		if parent_shape and is_mouse_over:
-			var is_in_time_window = parent_shape.internal_time >= -highlight_duration and parent_shape.internal_time <= highlight_duration
+			var current_time = parent_shape.get_internal_time()
+			var meeting_time = parent_shape.get_lifespan() / 2.0
+			var window_start = meeting_time - highlight_duration
+			var window_end = meeting_time + highlight_duration
+			var is_in_time_window = current_time >= window_start and current_time <= window_end
 			if is_in_time_window:
 				MessageBus.publish("highlight_clicked", {"highlight": self, "shape": parent_shape})
 
