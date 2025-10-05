@@ -4,8 +4,8 @@ const FADE_DURATION: float = 1.5
 
 # Button position offsets (as percentage of background size)
 # Adjust these to compensate for transparent padding in button textures
-const BUTTON_PLAY_OFFSET: Vector2 = Vector2(-0.025, -0.065)  # No offset by default
-const BUTTON_EXIT_OFFSET: Vector2 = Vector2(-0.015, -0.065)  # No offset by default
+const BUTTON_PLAY_OFFSET: Vector2 = Vector2(-0.04, -0.08)  # No offset by default
+const BUTTON_EXIT_OFFSET: Vector2 = Vector2(-0.02, -0.08)  # No offset by default
 
 @onready var aspect_container = $AspectRatioContainer
 @onready var button_play = $AspectRatioContainer/Control/TextureButtonPlay
@@ -48,8 +48,8 @@ func position_buttons() -> void:
 	var center_offset = bg_size / 2.0
 
 	# Apply percentage-based offsets to compensate for transparent padding
-	button_play.position = (bg_size * Vector2(0.41, 0.68)) - center_offset + (bg_size * BUTTON_PLAY_OFFSET)
-	button_exit.position = (bg_size * Vector2(0.56, 0.68)) - center_offset + (bg_size * BUTTON_EXIT_OFFSET)
+	button_play.position = (bg_size * Vector2(0.42, 0.65)) - center_offset + (bg_size * BUTTON_PLAY_OFFSET)
+	button_exit.position = (bg_size * Vector2(0.53, 0.65)) - center_offset + (bg_size * BUTTON_EXIT_OFFSET)
 
 func _on_button_play_pressed() -> void:
 	disable_buttons()

@@ -55,11 +55,11 @@ func apply_depth_effects():
 
 	if cloud_size > size_threshold:
 		# Large clouds: background, slower
-		z_index = -1
+		z_index = -3
 		speed *= 0.5
 	else:
 		# Small clouds: foreground, faster
-		z_index = 1
+		z_index = -2
 		speed *= 1.5
 
 func _process(delta):

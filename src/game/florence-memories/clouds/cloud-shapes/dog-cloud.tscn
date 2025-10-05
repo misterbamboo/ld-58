@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3 uid="uid://dwafuug7oubye"]
+
+[ext_resource type="Script" uid="uid://dtetvg1t02xgs" path="res://clouds/cloud_shape.gd" id="1_shape"]
+[ext_resource type="Texture2D" uid="uid://ot1jg66fh228" path="res://clouds/assets/cloud-shapes/Cloud_Dog.png" id="2_o63i6"]
+[ext_resource type="PackedScene" uid="uid://bg8iagla2fj76" path="res://clouds/prefabs/cloud_1.tscn" id="3_0p3oy"]
+[ext_resource type="PackedScene" uid="uid://cdqyu2whskues" path="res://clouds/prefabs/cloud_3.tscn" id="4_dw14t"]
+[ext_resource type="PackedScene" uid="uid://b1ovymibj6bjh" path="res://clouds/prefabs/cloud_2.tscn" id="4_f3h3p"]
+[ext_resource type="PackedScene" uid="uid://cwgoc8v1nx1fv" path="res://clouds/prefabs/cloud_4.tscn" id="5_usxq0"]
+[ext_resource type="PackedScene" uid="uid://bv77qcnkwh7iq" path="res://clouds/prefabs/cloud_5.tscn" id="6_r8cyt"]
+[ext_resource type="Script" uid="uid://3cwvwcqjval4" path="res://clouds/cloud_highlight.gd" id="7_highlight"]
+
+[node name="DogCloudShape" type="Node2D"]
+script = ExtResource("1_shape")
+cloud_image = ExtResource("2_o63i6")
+
+[node name="DogCloud" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_o63i6")
+
+[node name="Cloud" parent="." instance=ExtResource("3_0p3oy")]
+position = Vector2(-40, -47.000004)
+scale = Vector2(2.0399997, 2.0399997)
+
+[node name="Cloud2" parent="." instance=ExtResource("4_dw14t")]
+position = Vector2(-7, -2)
+scale = Vector2(2.7920196, 2.7920196)
+
+[node name="Cloud3" parent="." instance=ExtResource("5_usxq0")]
+position = Vector2(28, -24)
+scale = Vector2(2.596886, 2.596886)
+
+[node name="Cloud4" parent="." instance=ExtResource("6_r8cyt")]
+position = Vector2(-86, -34)
+scale = Vector2(1.993662, 1.993662)
+
+[node name="Cloud5" parent="." instance=ExtResource("3_0p3oy")]
+position = Vector2(-58, -57)
+
+[node name="Cloud6" parent="." instance=ExtResource("4_f3h3p")]
+position = Vector2(-30, 43)
+scale = Vector2(1.3855711, 1.3855711)
+
+[node name="Cloud7" parent="." instance=ExtResource("3_0p3oy")]
+position = Vector2(-42, 61)
+
+[node name="Cloud8" parent="." instance=ExtResource("3_0p3oy")]
+position = Vector2(48, 54)
+scale = Vector2(1.278964, 1.278964)
+
+[node name="Cloud9" parent="." instance=ExtResource("4_f3h3p")]
+position = Vector2(56.000008, 15.000002)
+scale = Vector2(2.149111, 2.149111)
+
+[node name="Cloud10" parent="." instance=ExtResource("4_dw14t")]
+position = Vector2(-47, -16)
+
+[node name="Cloud11" parent="." instance=ExtResource("6_r8cyt")]
+position = Vector2(85, -23)
+scale = Vector2(1.5745792, 1.5745792)
+
+[node name="Cloud12" parent="." instance=ExtResource("6_r8cyt")]
+position = Vector2(92, -40)
+scale = Vector2(1.490304, 1.490304)
+
+[node name="Cloud13" parent="." instance=ExtResource("5_usxq0")]
+position = Vector2(81, -57)
+
+[node name="HighlightLines" type="Line2D" parent="."]
+position = Vector2(-6, 0)
+points = PackedVector2Array(-55, 74, -54, 61, -44, 55, -43, 31, -53, 9, -55, -16, -76, -18, -91, -29, -93, -46, -72, -49, -69, -61, -59, -69, -41, -74, -20, -68, -8, -53, -4, -37, 10, -32, 47, -31, 80, -24, 85, -36, 74, -50, 77, -62, 93, -61, 110, -45, 106, -22, 106, -12, 84, -5, 83, 9, 79, 34, 82, 58, 72, 73, 44, 74, 25, 70, 38, 50, 37, 29, 12, 40, -2, 41, -4, 55, -11, 71, -30, 76)
+closed = true
+width = 8.745
+default_color = Color(0, 0.6117647, 1, 1)
+joint_mode = 2
+antialiased = true
+script = ExtResource("7_highlight")

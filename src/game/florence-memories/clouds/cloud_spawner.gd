@@ -15,7 +15,7 @@ class OccupiedRegion:
 @export var min_lifespan: float = 30.0
 @export var max_lifespan: float = 90.0
 
-const PADDING_PERCENT: float = 0.1
+const PADDING_PERCENT: float = 0.2
 
 var cloud_spawn_timer: float = 0.0
 var next_cloud_spawn_time: float = 0.0

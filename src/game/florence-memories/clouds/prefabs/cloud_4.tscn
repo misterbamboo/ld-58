@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://cwgoc8v1nx1fv"]
+
+[ext_resource type="Script" uid="uid://drlblwp0thwob" path="res://clouds/cloud.gd" id="1_ehhau"]
+[ext_resource type="Script" uid="uid://d1lcx0kynacm4" path="res://clouds/cloud_squish.gd" id="2_s6nj3"]
+[ext_resource type="Texture2D" uid="uid://dwxkhw6gs2f20" path="res://clouds/assets/Cloud_4.png" id="3_ehhau"]
+[ext_resource type="Script" uid="uid://b4mnvvj48ueil" path="res://clouds/cloud_alpha.gd" id="4_lkgyk"]
+
+[node name="Cloud" type="Node2D"]
+script = ExtResource("1_ehhau")
+
+[node name="CloudSquish" type="Node2D" parent="."]
+scale = Vector2(0.1, 0.1)
+script = ExtResource("2_s6nj3")
+
+[node name="CloudSprite" type="Sprite2D" parent="CloudSquish"]
+texture = ExtResource("3_ehhau")
+script = ExtResource("4_lkgyk")

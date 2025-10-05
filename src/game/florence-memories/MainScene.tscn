@@ -1,15 +1,21 @@
-[gd_scene load_steps=11 format=3 uid="uid://ddksst3cw4wam"]
+[gd_scene load_steps=17 format=3 uid="uid://ddksst3cw4wam"]
 
-[ext_resource type="PackedScene" uid="uid://dwafuug7oubye" path="res://clouds/cloud-shapes/dog-cloud/dog-cloud.tscn" id="1_3mqji"]
+[ext_resource type="PackedScene" uid="uid://dwafuug7oubye" path="res://clouds/cloud-shapes/dog-cloud.tscn" id="1_3mqji"]
 [ext_resource type="Script" uid="uid://cwchnxb0a6n5d" path="res://clouds/cloud_spawner.gd" id="2_rf2cd"]
-[ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_default.tscn" id="3_a814b"]
-[ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_oval.tscn" id="4_5crlr"]
-[ext_resource type="PackedScene" uid="uid://kksanuhdvdff" path="res://clouds/cloud-shapes/tricycle-cloud/tricycle-cloud.tscn" id="5_a814b"]
-[ext_resource type="PackedScene" uid="uid://44gee11omn7r" path="res://clouds/cloud-shapes/dino-cloud/dino-cloud.tscn" id="6_5crlr"]
+[ext_resource type="PackedScene" uid="uid://bg8iagla2fj76" path="res://clouds/prefabs/cloud_1.tscn" id="3_a814b"]
+[ext_resource type="PackedScene" uid="uid://cdqyu2whskues" path="res://clouds/prefabs/cloud_3.tscn" id="4_3hf6u"]
+[ext_resource type="PackedScene" uid="uid://b1ovymibj6bjh" path="res://clouds/prefabs/cloud_2.tscn" id="4_5crlr"]
+[ext_resource type="PackedScene" uid="uid://cwgoc8v1nx1fv" path="res://clouds/prefabs/cloud_4.tscn" id="5_4mcbk"]
+[ext_resource type="PackedScene" uid="uid://kksanuhdvdff" path="res://clouds/cloud-shapes/bear-cloud.tscn" id="5_a814b"]
+[ext_resource type="PackedScene" uid="uid://44gee11omn7r" path="res://clouds/cloud-shapes/dino-cloud.tscn" id="6_5crlr"]
+[ext_resource type="PackedScene" uid="uid://bv77qcnkwh7iq" path="res://clouds/prefabs/cloud_5.tscn" id="6_mctxq"]
 [ext_resource type="PackedScene" uid="uid://od2j2p2kj0ln" path="res://memories-book/memories-book.tscn" id="7_5crlr"]
 [ext_resource type="Texture2D" uid="uid://b02juym75ynpc" path="res://backgrounds/BG_Game_01.png" id="7_torvr"]
 [ext_resource type="PackedScene" uid="uid://dxbgxb73hlj4j" path="res://musics/MusicOrchestrator.tscn" id="8_hbc2u"]
+[ext_resource type="PackedScene" uid="uid://brc260iyikilo" path="res://clouds/cloud-shapes/butterfly-cloud.tscn" id="8_nm5af"]
+[ext_resource type="PackedScene" uid="uid://cvsq7d36m0k4r" path="res://clouds/cloud-shapes/car-cloud.tscn" id="9_x0cd2"]
 [ext_resource type="PackedScene" uid="uid://cogcyo5nevq4p" path="res://menus/MainMenu.tscn" id="10_8xkvn"]
+[ext_resource type="PackedScene" uid="uid://bhuvyn4g7jfsg" path="res://clouds/cloud-shapes/fer-cloud.tscn" id="12_8s4c3"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -21,8 +27,8 @@ grow_vertical = 2
 
 [node name="CloudSpawner" type="Node2D" parent="."]
 script = ExtResource("2_rf2cd")
-cloud_scenes = Array[PackedScene]([ExtResource("3_a814b"), ExtResource("4_5crlr")])
-shape_scenes = Array[PackedScene]([ExtResource("1_3mqji"), ExtResource("5_a814b"), ExtResource("6_5crlr")])
+cloud_scenes = Array[PackedScene]([ExtResource("3_a814b"), ExtResource("4_5crlr"), ExtResource("4_3hf6u"), ExtResource("5_4mcbk"), ExtResource("6_mctxq")])
+shape_scenes = Array[PackedScene]([ExtResource("5_a814b"), ExtResource("8_nm5af"), ExtResource("9_x0cd2"), ExtResource("6_5crlr"), ExtResource("1_3mqji"), ExtResource("12_8s4c3")])
 spawn_y_min = 50.0
 spawn_y_max = 500.0
 metadata/_custom_type_script = "uid://cwchnxb0a6n5d"
