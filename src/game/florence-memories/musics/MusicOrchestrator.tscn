@@ -1,11 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxbgxb73hlj4j"]
+[gd_scene load_steps=3 format=3 uid="uid://dxbgxb73hlj4j"]
 
 [ext_resource type="AudioStream" uid="uid://be38va5eaaqiw" path="res://musics/tears-of-victory-245311.mp3" id="1_4dh1a"]
+[ext_resource type="AudioStream" uid="uid://cmqbwsnuqtxow" path="res://musics/mixkit-morning-sound-in-a-garden-2464.mp3" id="2_5uea7"]
 
 [node name="MusicOrchestrator" type="Node"]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("1_4dh1a")
+volume_db = -30.0
+autoplay = true
+parameters/looping = false
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5uea7")
 volume_db = -30.0
 autoplay = true
 parameters/looping = false
