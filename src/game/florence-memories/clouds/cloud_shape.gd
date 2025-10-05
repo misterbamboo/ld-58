@@ -59,7 +59,7 @@ func _process(delta):
 		check_and_initialize_children()
 		return
 
-	internal_time = clamp(internal_time + delta, 0.0, lifespan)
+	internal_time += delta
 	update_position()
 	check_if_lifetime_ended()
 
@@ -74,7 +74,7 @@ func check_and_initialize_children():
 	clouds_initialized = true
 
 func update_position():
-	var t = internal_time / lifespan
+	var t = clamp(internal_time / lifespan, 0.0, 1.0)
 	var half_distance = drift_speed * lifespan / 2.0 * direction
 	var start = meet_at_pos - Vector2(half_distance, 0)
 	var end = meet_at_pos + Vector2(half_distance, 0)
