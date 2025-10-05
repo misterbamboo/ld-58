@@ -68,7 +68,7 @@ func initialize_memory_configs() -> void:
 			"A strawberry cloud that reminds me of that day when Dad, Mom, and I all had red lips from eating too many berries together."
 		),
 		"trefle": MemoryData.new(
-			"Trèfle",
+			"Lucky clover",
 			"A clover cloud that reminds me of searching for the one with four leaves while Grandpa said luck finds those who keep smiling."
 		)
 	}
@@ -177,7 +177,14 @@ func _on_memory_hover(slot_index: int) -> void:
 	tooltip_container.visible = true
 
 	var mouse_pos = get_global_mouse_position()
-	tooltip_container.global_position = mouse_pos + Vector2(20, 20)
+
+	# Position tooltip based on which page the memory is on
+	if slot_index < 6:
+		# Left page (memories 0-5): show tooltip to the right of mouse
+		tooltip_container.global_position = mouse_pos + Vector2(20, 20)
+	else:
+		# Right page (memories 6-11): show tooltip to the left of mouse
+		tooltip_container.global_position = mouse_pos + Vector2(-tooltip_container.size.x - 20, 20)
 
 	print("[MemoryTooltip] Tooltip visible, container size: ", tooltip_container.size)
 
