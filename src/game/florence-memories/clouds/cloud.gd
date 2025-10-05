@@ -54,13 +54,11 @@ func apply_depth_effects():
 	var size_threshold = 600.0
 
 	if cloud_size > size_threshold:
-		# Large clouds: background, slower
+		# Large clouds: background layer
 		z_index = -3
-		speed *= 0.5
 	else:
-		# Small clouds: foreground, faster
+		# Small clouds: foreground layer
 		z_index = -2
-		speed *= 1.5
 
 func _process(delta):
 	internal_time = internal_time + delta
@@ -154,8 +152,8 @@ func is_faded_out() -> bool:
 func set_managed_by_shape(managed: bool) -> void:
 	is_managed_by_shape = managed
 
-func initialize(meeting_pos: Vector2, spawn_direction: int, spawn_lifespan: float, spawn_meet_in_time: float, delay: float = 0.0) -> void:
-	speed = randf_range(min_speed, max_speed)
+func initialize(meeting_pos: Vector2, spawn_direction: int, spawn_lifespan: float, spawn_meet_in_time: float, delay: float = 0.0, speed_multiplier: float = 1.0) -> void:
+	speed = randf_range(min_speed, max_speed) * speed_multiplier
 	direction = spawn_direction
 	lifespan = spawn_lifespan
 	meet_in_time = spawn_meet_in_time

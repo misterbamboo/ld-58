@@ -16,6 +16,12 @@ const SHAPE_SPAWN_INTERVAL: float = 30.0
 const CLOUD_SPAWN_INTERVAL: float = 2.0
 const CLOUD_LIFESPAN: float = 30.0
 
+const CLOUD_MIN_SCALE: float = 1.0
+const CLOUD_MAX_SCALE: float = 2.5
+
+const CLOUD_BASE_MIN_SPEED: float = 10.0
+const CLOUD_BASE_MAX_SPEED: float = 25.0
+
 var shape_spawn_timer: float = 0.0
 var cloud_spawn_timer: float = 0.0
 var screen_size: Vector2 = Vector2.ZERO
@@ -152,7 +158,18 @@ func initialize_cloud(cloud: Cloud):
 	var direction = -1
 	var lifespan = CLOUD_LIFESPAN
 
-	cloud.initialize(meet_at_pos, direction, lifespan, 0.0)
+	# Override cloud speed values with spawner constants
+	cloud.min_speed = CLOUD_BASE_MIN_SPEED
+	cloud.max_speed = CLOUD_BASE_MAX_SPEED
+
+	# Random scale based on constants
+	var random_scale = randf_range(CLOUD_MIN_SCALE, CLOUD_MAX_SCALE)
+	cloud.scale = Vector2(random_scale, random_scale)
+
+	# Speed inversely proportional to scale (bigger = slower)
+	var speed_multiplier = 1.0 / random_scale
+
+	cloud.initialize(meet_at_pos, direction, lifespan, 0.0, 0.0, speed_multiplier)
 
 func initialize_shape(shape: CloudShape):
 	var meet_at_pos = find_non_overlapping_position()
