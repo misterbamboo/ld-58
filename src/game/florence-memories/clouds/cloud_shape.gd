@@ -5,7 +5,7 @@ class_name CloudShape
 
 @export var min_lifespan: float = 30.0
 @export var max_lifespan: float = 90.0
-@export var drift_speed: float = 0.5
+@export var drift_speed: float = 8.0
 
 var clouds: Array[Cloud] = []
 var internal_time: float = 0.0
@@ -52,7 +52,7 @@ func initialize_child_clouds(meeting_pos: Vector2, spawn_direction: int, meet_in
 	for cloud in clouds:
 		var child_lifespan = randf_range(min_lifespan * 1.25, lifespan * 1.25)
 		var spawn_delay = randf_range(0, child_lifespan/3)
-		cloud.initialize(Vector2.ZERO, spawn_direction, child_lifespan, meet_in_time, spawn_delay)
+		cloud.initialize(Vector2.ZERO, -1, child_lifespan, meet_in_time, spawn_delay)
 
 func _process(delta):
 	if not clouds_initialized:

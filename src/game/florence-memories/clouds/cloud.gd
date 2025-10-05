@@ -26,12 +26,41 @@ var override_rotation: bool = false
 var target_rotation: float = 0.0
 
 var ready_flag: bool = false
+var cloud_size: float = 0.0
 
 func _ready():
 	if direction == 0:
 		direction = 1 if randf() > 0.5 else -1
 
+	cloud_size = calculate_cloud_size()
+	apply_depth_effects()
 	ready_flag = true
+
+func calculate_cloud_size() -> float:
+	var sprite_node = find_child("CloudSprite")
+	if sprite_node and sprite_node is Sprite2D:
+		var texture = sprite_node.texture
+		if texture:
+			var width = texture.get_width()
+			var height = texture.get_height()
+			return (width + height) / 2.0
+	return 0.0
+
+func apply_depth_effects():
+	if cloud_size == 0.0:
+		return
+
+	# Size threshold: clouds with average dimension > 600 are large (background)
+	var size_threshold = 600.0
+
+	if cloud_size > size_threshold:
+		# Large clouds: background, slower
+		z_index = -1
+		speed *= 0.5
+	else:
+		# Small clouds: foreground, faster
+		z_index = 1
+		speed *= 1.5
 
 func _process(delta):
 	internal_time = internal_time + delta
@@ -127,7 +156,7 @@ func set_managed_by_shape(managed: bool) -> void:
 
 func initialize(meeting_pos: Vector2, spawn_direction: int, spawn_lifespan: float, spawn_meet_in_time: float, delay: float = 0.0) -> void:
 	speed = randf_range(min_speed, max_speed)
-	direction = 1 if randf() > 0.5 else -1
+	direction = spawn_direction
 	lifespan = spawn_lifespan
 	meet_in_time = spawn_meet_in_time
 	spawn_delay = delay

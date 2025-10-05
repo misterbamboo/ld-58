@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://kksanuhdvdff"]
+[gd_scene load_steps=6 format=3 uid="uid://kksanuhdvdff"]
 
 [ext_resource type="Script" uid="uid://dtetvg1t02xgs" path="res://clouds/cloud_shape.gd" id="1_85vjl"]
 [ext_resource type="Texture2D" uid="uid://bxecrly7qojf" path="res://clouds/assets/tricycle-cloud.png" id="2_f757b"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_default.tscn" id="3_7slhs"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_oval.tscn" id="4_tk51g"]
-[ext_resource type="PackedScene" uid="uid://cdqyu2whskues" path="res://clouds/prefabs/cloud_vertical.tscn" id="5_63vei"]
 [ext_resource type="Script" uid="uid://3cwvwcqjval4" path="res://clouds/cloud_highlight.gd" id="6_yogro"]
 
 [node name="TricycleCloudShape" type="Node2D"]
@@ -17,42 +16,46 @@ position = Vector2(9, 2)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_f757b")
 
-[node name="Cloud" parent="." instance=ExtResource("3_7slhs")]
-position = Vector2(-32, -41)
-
 [node name="Cloud2" parent="." instance=ExtResource("4_tk51g")]
-position = Vector2(46, -62)
+position = Vector2(53, -61.999996)
+scale = Vector2(1.4400007, 1.4400007)
+
+[node name="Cloud10" parent="." instance=ExtResource("4_tk51g")]
+position = Vector2(45, -36)
+scale = Vector2(0.64000064, 0.64000064)
 
 [node name="Cloud3" parent="." instance=ExtResource("4_tk51g")]
-position = Vector2(-52, 46)
+position = Vector2(-52, 51)
 
 [node name="Cloud4" parent="." instance=ExtResource("3_7slhs")]
-position = Vector2(-62, 24)
+position = Vector2(56, -3)
 
 [node name="Cloud5" parent="." instance=ExtResource("4_tk51g")]
-position = Vector2(54, 54)
+position = Vector2(54, 59)
+
+[node name="Cloud8" parent="." instance=ExtResource("4_tk51g")]
+position = Vector2(56, 41.999996)
+scale = Vector2(1.4400007, 1.4400007)
 
 [node name="Cloud6" parent="." instance=ExtResource("3_7slhs")]
-position = Vector2(54, 31)
+position = Vector2(-32, -42)
 
 [node name="Cloud7" parent="." instance=ExtResource("4_tk51g")]
-position = Vector2(-10, -15)
-
-[node name="Cloud8" parent="." instance=ExtResource("5_63vei")]
-position = Vector2(39, -22.999998)
-rotation = 0.39803776
+position = Vector2(-16, -12)
 
 [node name="Cloud11" parent="." instance=ExtResource("3_7slhs")]
-position = Vector2(-51, 5)
+position = Vector2(-50, 3)
 
 [node name="Cloud12" parent="." instance=ExtResource("4_tk51g")]
-position = Vector2(29, -17)
+position = Vector2(26, -19)
 
 [node name="Cloud13" parent="." instance=ExtResource("4_tk51g")]
-position = Vector2(58, 6)
+position = Vector2(54, 26.000002)
+scale = Vector2(1.5600005, 1.5600005)
 
 [node name="Cloud9" parent="." instance=ExtResource("4_tk51g")]
-position = Vector2(-37, 29)
+position = Vector2(-50.000004, 28.000002)
+scale = Vector2(1.4800014, 1.4800014)
 
 [node name="HighlightLines" type="Line2D" parent="."]
 position = Vector2(3, 0)

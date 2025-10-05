@@ -42,12 +42,15 @@
 - **Continuous Spawning**: Timer-based (2-6s intervals)
   - Default: spawns individual clouds
   - Shape replacement: When shape vanishes, flag is set to spawn shape on next interval
-- **Spawn Behavior**: All entities spawn on-screen with meeting point
-  - Random x position (0 to screen_width)
-  - Random y position (spawn_y_min to spawn_y_max)
-  - **Direction based on spawn position:**
-    - Left half (x < screen_width/2): move RIGHT (direction = 1)
-    - Right half (x >= screen_width/2): move LEFT (direction = -1)
+- **Spawn Behavior**: Target positions on left side, clouds fade in from right
+  - **Target position** (`meet_at_pos`): Random x (0 to screen_width/2), random y (spawn_y_min to spawn_y_max)
+  - **Direction**: All clouds move LEFT (direction = -1)
+  - Clouds start off-screen right and fade in while traveling toward left target
+- **Collision Avoidance** (CloudShapes only):
+  - `OccupiedRegion` class tracks active shape positions with radius (150px)
+  - `find_non_overlapping_position()` attempts 10 tries to find non-overlapping spawn
+  - Regions released when shape vanishes
+  - Individual clouds can overlap (no tracking)
 - **Unified Initialization**: `initialize(meet_at_pos, direction, lifespan, meet_in_time)`
   - Same signature for Cloud and CloudShape
   - Individual clouds: `meet_in_time = 0` (spawn at meeting point)
@@ -57,6 +60,15 @@
 ### Individual Cloud System (Time-Based Movement)
 - **No phase enum** - components self-manage based on cloud's timer
 - **Lifespan: 30-90s**, **Speed: 2.0-3.0 px/s** (randomized per cloud in `initialize()`)
+- **Size-Based Depth Perception System**:
+  - `calculate_cloud_size()`: Calculates average of sprite width and height
+  - **Large clouds (avg dimension > 600px)**:
+    - Background layer (z_index = -1)
+    - Slower speed (0.5x multiplier) - appear farther away
+  - **Small clouds (avg dimension ≤ 600px)**:
+    - Foreground layer (z_index = 1)
+    - Faster speed (1.5x multiplier) - appear closer
+  - Creates realistic depth perception with parallax effect
 - **Movement System**:
   - Calculates `start_position` and `end_position` based on speed, direction, and meeting time
   - `position = lerp(start_position, end_position, (current_time - start_time) / lifespan)`
@@ -77,7 +89,7 @@
 
 ### Cloud Shape System (Timer Coordinator + Position Guide)
 - **Simple Architecture**: CloudShape = timer provider + position guide (no phase management)
-- **Lifespan: 30-90s**, **Drift Speed: 0.5 px/s**
+- **Lifespan: 30-90s**, **Drift Speed: 4.0 px/s**
 - **Timeline**:
   - Starts at `internal_time = -lifespan/2`
   - **First shape exception**: `set_first_shape_time()` sets `internal_time = -lifespan/4` (pre-progressed)

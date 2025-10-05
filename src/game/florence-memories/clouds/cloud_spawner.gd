@@ -1,6 +1,11 @@
 extends Node2D
 class_name CloudSpawner
 
+class OccupiedRegion:
+	var position: Vector2
+	var radius: float
+	var shape: CloudShape
+
 @export var cloud_scenes: Array[PackedScene] = []
 @export var shape_scenes: Array[PackedScene] = []
 @export var min_cloud_interval: float = 4.0
@@ -18,6 +23,7 @@ var shapes_to_spawn: int = 0
 
 var pending_clouds: Array[Cloud] = []
 var pending_shapes: Array[CloudShape] = []
+var occupied_regions: Array[OccupiedRegion] = []
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -114,25 +120,28 @@ func process_pending_initialization():
 			i += 1
 
 func initialize_cloud(cloud: Cloud):
-	var spawn_x = randf_range(0.0, screen_size.x)
+	var spawn_x = randf_range(0.0, screen_size.x / 2.0)
 	var spawn_y = randf_range(spawn_y_min, spawn_y_max)
 	var meet_at_pos = Vector2(spawn_x, spawn_y)
 
-	var direction = 1 if spawn_x < screen_size.x / 2.0 else -1
+	var direction = -1
 	var lifespan = randf_range(min_lifespan, max_lifespan)
 
 	cloud.initialize(meet_at_pos, direction, lifespan, 0.0)
 
 func initialize_shape(shape: CloudShape):
-	var spawn_x = randf_range(0.0, screen_size.x)
-	var spawn_y = randf_range(spawn_y_min, spawn_y_max)
-	var meet_at_pos = Vector2(spawn_x, spawn_y)
-
-	var direction = 1 if spawn_x < screen_size.x / 2.0 else -1
+	var meet_at_pos = find_non_overlapping_position()
+	var direction = -1
 	var lifespan = randf_range(min_lifespan, max_lifespan)
 	var meet_in_time = lifespan / 2.0
 
 	shape.initialize(meet_at_pos, direction, lifespan, meet_in_time)
+
+	var region = OccupiedRegion.new()
+	region.position = meet_at_pos
+	region.radius = 150.0
+	region.shape = shape
+	occupied_regions.append(region)
 
 func get_active_shapes_count() -> int:
 	var count = 0
@@ -144,3 +153,31 @@ func get_active_shapes_count() -> int:
 func _on_shape_vanished(data: Dictionary):
 	spawn_shape_next = true
 	shapes_to_spawn = randi_range(2, 3)
+	release_occupied_region(data.shape)
+
+func release_occupied_region(shape: CloudShape):
+	for i in range(occupied_regions.size() - 1, -1, -1):
+		if occupied_regions[i].shape == shape:
+			occupied_regions.remove_at(i)
+			return
+
+func find_non_overlapping_position() -> Vector2:
+	var max_attempts = 10
+	for attempt in range(max_attempts):
+		var spawn_x = randf_range(0.0, screen_size.x / 2.0)
+		var spawn_y = randf_range(spawn_y_min, spawn_y_max)
+		var candidate_pos = Vector2(spawn_x, spawn_y)
+
+		if is_position_available(candidate_pos):
+			return candidate_pos
+
+	# Fallback: return random position even if overlapping
+	return Vector2(randf_range(0.0, screen_size.x / 2.0), randf_range(spawn_y_min, spawn_y_max))
+
+func is_position_available(candidate_pos: Vector2) -> bool:
+	var min_distance = 150.0
+	for region in occupied_regions:
+		var distance = candidate_pos.distance_to(region.position)
+		if distance < (min_distance + region.radius):
+			return false
+	return true

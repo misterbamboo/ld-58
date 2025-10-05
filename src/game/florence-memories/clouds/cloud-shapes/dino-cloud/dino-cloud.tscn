@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://44gee11omn7r"]
+[gd_scene load_steps=6 format=3 uid="uid://44gee11omn7r"]
 
 [ext_resource type="Script" uid="uid://dtetvg1t02xgs" path="res://clouds/cloud_shape.gd" id="1_4buuv"]
 [ext_resource type="Texture2D" uid="uid://cr3s425hruhkt" path="res://clouds/assets/dinosaur-cloud.png" id="2_1rmsa"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_default.tscn" id="3_glgmc"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_oval.tscn" id="4_jgvy2"]
-[ext_resource type="PackedScene" uid="uid://cdqyu2whskues" path="res://clouds/prefabs/cloud_vertical.tscn" id="5_kjpfc"]
 [ext_resource type="Script" uid="uid://3cwvwcqjval4" path="res://clouds/cloud_highlight.gd" id="6_c17cv"]
 
 [node name="DinoCloudShape" type="Node2D"]
@@ -18,37 +17,38 @@ scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_1rmsa")
 
 [node name="Cloud" parent="." instance=ExtResource("3_glgmc")]
-position = Vector2(10, -25)
+position = Vector2(10, -8.999999)
+scale = Vector2(1.9200015, 1.9200015)
 
 [node name="Cloud2" parent="." instance=ExtResource("4_jgvy2")]
 position = Vector2(-63, -65)
+scale = Vector2(1.24, 1.48)
 
 [node name="Cloud3" parent="." instance=ExtResource("4_jgvy2")]
-position = Vector2(37, 1)
-
-[node name="Cloud4" parent="." instance=ExtResource("3_glgmc")]
-position = Vector2(-15, 3)
+position = Vector2(117, 16)
 
 [node name="Cloud5" parent="." instance=ExtResource("4_jgvy2")]
-position = Vector2(-35, 48)
+position = Vector2(-43, 46.999996)
+scale = Vector2(1.359999, 1.359999)
 
 [node name="Cloud6" parent="." instance=ExtResource("3_glgmc")]
-position = Vector2(49, 12)
-
-[node name="Cloud9" parent="." instance=ExtResource("5_kjpfc")]
-position = Vector2(-45, -29)
+position = Vector2(-33, -17)
 
 [node name="Cloud12" parent="." instance=ExtResource("4_jgvy2")]
-position = Vector2(91, 24)
+position = Vector2(81, 28)
 
 [node name="Cloud13" parent="." instance=ExtResource("4_jgvy2")]
-position = Vector2(25, 51)
+position = Vector2(33, 49)
 
 [node name="Cloud7" parent="." instance=ExtResource("4_jgvy2")]
-position = Vector2(-20, 27)
+position = Vector2(-27, 24)
 
 [node name="Cloud8" parent="." instance=ExtResource("4_jgvy2")]
-position = Vector2(23, 29)
+position = Vector2(27, 29)
+
+[node name="Cloud4" parent="." instance=ExtResource("3_glgmc")]
+position = Vector2(-45, -40)
+scale = Vector2(0.67999935, 0.67999935)
 
 [node name="HighlightLines" type="Line2D" parent="."]
 position = Vector2(3, 0)
