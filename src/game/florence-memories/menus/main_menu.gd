@@ -5,10 +5,16 @@ const FADE_DURATION: float = 1.5
 @onready var aspect_container = $AspectRatioContainer
 @onready var button_play = $AspectRatioContainer/Control/ButtonPlay
 @onready var button_credits = $AspectRatioContainer/Control/ButtonCredits
+@onready var bg_menu = $AspectRatioContainer/BG_Menu
+@onready var bg_tuto = $AspectRatioContainer/BG_Tuto
 
 var last_viewport_size: Vector2 = Vector2.ZERO
+var waiting_for_click: bool = false
 
 func _ready() -> void:
+	show()
+	bg_tuto.hide()
+	bg_tuto.modulate.a = 1.0
 	get_viewport().size_changed.connect(_on_viewport_resized)
 	await get_tree().process_frame
 	position_buttons()
@@ -19,6 +25,11 @@ func _process(_delta: float) -> void:
 	if current_size != last_viewport_size:
 		last_viewport_size = current_size
 		position_buttons()
+
+func _input(event: InputEvent) -> void:
+	if waiting_for_click and event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			waiting_for_click = false
 
 func _on_viewport_resized() -> void:
 	position_buttons()
@@ -36,18 +47,46 @@ func position_buttons() -> void:
 
 func _on_button_play_pressed() -> void:
 	disable_buttons()
-	fade_out_menu()
+	start_tutorial_sequence()
+
+func start_tutorial_sequence() -> void:
+	await fade_out_buttons()
+	await transition_menu_to_tutorial()
+	await wait_for_player_click()
+	await fade_out_tutorial()
+	hide()
 
 func disable_buttons() -> void:
 	button_play.disabled = true
 	button_credits.disabled = true
 
-func fade_out_menu() -> void:
+func fade_out_buttons() -> void:
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
-	tween.tween_property(self, "modulate:a", 0.0, FADE_DURATION)
-	tween.finished.connect(on_fade_complete)
+	tween.tween_property(button_play, "modulate:a", 0.0, FADE_DURATION)
+	tween.parallel().tween_property(button_credits, "modulate:a", 0.0, FADE_DURATION)
+	await tween.finished
 
-func on_fade_complete() -> void:
-	hide()
+func transition_menu_to_tutorial() -> void:
+	bg_tuto.show()
+	bg_tuto.modulate.a = 0.0
+
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.tween_property(bg_menu, "modulate:a", 0.0, FADE_DURATION)
+	tween.parallel().tween_property(bg_tuto, "modulate:a", 1.0, FADE_DURATION)
+	await tween.finished
+
+func wait_for_player_click() -> void:
+	waiting_for_click = true
+	while waiting_for_click:
+		await get_tree().process_frame
+
+func fade_out_tutorial() -> void:
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	tween.tween_property(bg_tuto, "modulate:a", 0.0, FADE_DURATION)
+	await tween.finished

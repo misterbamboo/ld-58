@@ -15,6 +15,8 @@ class OccupiedRegion:
 @export var min_lifespan: float = 30.0
 @export var max_lifespan: float = 90.0
 
+const PADDING_PERCENT: float = 0.1
+
 var cloud_spawn_timer: float = 0.0
 var next_cloud_spawn_time: float = 0.0
 var screen_size: Vector2 = Vector2.ZERO
@@ -24,9 +26,11 @@ var shapes_to_spawn: int = 0
 var pending_clouds: Array[Cloud] = []
 var pending_shapes: Array[CloudShape] = []
 var occupied_regions: Array[OccupiedRegion] = []
+var last_viewport_size: Vector2 = Vector2.ZERO
 
 func _ready():
 	screen_size = get_viewport_rect().size
+	last_viewport_size = screen_size
 	next_cloud_spawn_time = randf_range(min_cloud_interval, max_cloud_interval)
 	MessageBus.subscribe(CloudEvents.SHAPE_VANISHED, _on_shape_vanished)
 	spawn_initial_entities()
@@ -40,8 +44,26 @@ func spawn_initial_entities():
 		spawn_cloud()
 
 func _process(delta):
+	check_viewport_resize()
 	update_spawn_timer(delta)
 	process_pending_initialization()
+
+func check_viewport_resize():
+	var current_size = get_viewport().get_visible_rect().size
+	if current_size != last_viewport_size:
+		last_viewport_size = current_size
+		screen_size = current_size
+
+func get_spawn_bounds() -> Dictionary:
+	var padding_x = screen_size.x * PADDING_PERCENT
+	var padding_y = screen_size.y * PADDING_PERCENT
+
+	return {
+		"min_x": padding_x,
+		"max_x": screen_size.x - padding_x,
+		"min_y": padding_y,
+		"max_y": screen_size.y - padding_y
+	}
 
 func update_spawn_timer(delta: float):
 	# Safety check: ensure at least one shape is always present
@@ -120,8 +142,9 @@ func process_pending_initialization():
 			i += 1
 
 func initialize_cloud(cloud: Cloud):
-	var spawn_x = randf_range(0.0, screen_size.x / 2.0)
-	var spawn_y = randf_range(spawn_y_min, spawn_y_max)
+	var bounds = get_spawn_bounds()
+	var spawn_x = randf_range(bounds.min_x, bounds.max_x)
+	var spawn_y = randf_range(bounds.min_y, bounds.max_y)
 	var meet_at_pos = Vector2(spawn_x, spawn_y)
 
 	var direction = -1
@@ -162,17 +185,18 @@ func release_occupied_region(shape: CloudShape):
 			return
 
 func find_non_overlapping_position() -> Vector2:
+	var bounds = get_spawn_bounds()
 	var max_attempts = 10
 	for attempt in range(max_attempts):
-		var spawn_x = randf_range(0.0, screen_size.x / 2.0)
-		var spawn_y = randf_range(spawn_y_min, spawn_y_max)
+		var spawn_x = randf_range(bounds.min_x, bounds.max_x)
+		var spawn_y = randf_range(bounds.min_y, bounds.max_y)
 		var candidate_pos = Vector2(spawn_x, spawn_y)
 
 		if is_position_available(candidate_pos):
 			return candidate_pos
 
 	# Fallback: return random position even if overlapping
-	return Vector2(randf_range(0.0, screen_size.x / 2.0), randf_range(spawn_y_min, spawn_y_max))
+	return Vector2(randf_range(bounds.min_x, bounds.max_x), randf_range(bounds.min_y, bounds.max_y))
 
 func is_position_available(candidate_pos: Vector2) -> bool:
 	var min_distance = 150.0

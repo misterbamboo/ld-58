@@ -42,10 +42,18 @@
 - **Continuous Spawning**: Timer-based (2-6s intervals)
   - Default: spawns individual clouds
   - Shape replacement: When shape vanishes, flag is set to spawn shape on next interval
-- **Spawn Behavior**: Target positions on left side, clouds fade in from right
-  - **Target position** (`meet_at_pos`): Random x (0 to screen_width/2), random y (spawn_y_min to spawn_y_max)
+- **Spawn Behavior**: Dynamic boundaries with padding and bottom exclusion
+  - **Target position** (`meet_at_pos`): Calculated via `get_spawn_bounds()`
+    - X: Full screen width with 10% padding (`padding_x` to `screen_width - padding_x`)
+    - Y: Top 75% of screen with 10% padding (`padding_y` to `max_y - padding_y`)
+    - Bottom 25% excluded for background visibility
   - **Direction**: All clouds move LEFT (direction = -1)
-  - Clouds start off-screen right and fade in while traveling toward left target
+  - Clouds start off-screen right and fade in while traveling toward target
+- **Dynamic Resize Support**:
+  - `check_viewport_resize()` monitors viewport size changes every frame
+  - Updates `screen_size` when window resizes, fullscreen toggles, or maximize/minimize
+  - New spawns automatically use updated boundaries
+  - Existing clouds continue their paths (may go off-screen if scaled down)
 - **Collision Avoidance** (CloudShapes only):
   - `OccupiedRegion` class tracks active shape positions with radius (150px)
   - `find_non_overlapping_position()` attempts 10 tries to find non-overlapping spawn

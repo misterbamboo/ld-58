@@ -49,4 +49,5 @@ grow_vertical = 0
 [node name="MusicOrchestrator" parent="." instance=ExtResource("8_hbc2u")]
 
 [node name="MainMenu" parent="." instance=ExtResource("10_8xkvn")]
+visible = false
 layout_mode = 1
