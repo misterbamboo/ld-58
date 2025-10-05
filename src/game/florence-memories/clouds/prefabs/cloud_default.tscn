@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3]
 
-[ext_resource type="Script" path="res://clouds/cloud.gd" id="1_cloud"]
-[ext_resource type="Script" path="res://clouds/cloud_squish.gd" id="2_squish"]
-[ext_resource type="Script" path="res://clouds/cloud_alpha.gd" id="3_alpha"]
+[ext_resource type="Script" uid="uid://drlblwp0thwob" path="res://clouds/cloud.gd" id="1_cloud"]
+[ext_resource type="Script" uid="uid://d1lcx0kynacm4" path="res://clouds/cloud_squish.gd" id="2_squish"]
+[ext_resource type="Script" uid="uid://b4mnvvj48ueil" path="res://clouds/cloud_alpha.gd" id="3_alpha"]
 [ext_resource type="Texture2D" uid="uid://cjmyisssag5x4" path="res://clouds/assets/cloud-1-default.png" id="4_texture"]
 
 [node name="Cloud" type="Node2D"]

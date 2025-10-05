@@ -1,0 +1,175 @@
+[gd_scene load_steps=4 format=3 uid="uid://od2j2p2kj0ln"]
+
+[ext_resource type="Texture2D" uid="uid://cd8a6qrjmqtgn" path="res://memories-book/assets/memories-book.png" id="1_d8g1i"]
+[ext_resource type="Script" uid="uid://cnk6pyucjx6bw" path="res://memories-book/toggle-size-book.gd" id="1_snies"]
+[ext_resource type="Texture2D" uid="uid://cu0qaovexkhsb" path="res://clouds/assets/car-cloud.png" id="3_pdfwl"]
+
+[node name="MemoriesBook" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_snies")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+pivot_offset = Vector2(600, 600)
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("1_d8g1i")
+expand_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TextureRect"]
+layout_mode = 0
+offset_left = 15.999951
+offset_top = 25.999977
+offset_right = 83.719955
+offset_bottom = 70.23498
+
+[node name="GridContainerLeft" type="GridContainer" parent="TextureRect/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="Memory1" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerLeft"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory2" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerLeft"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory3" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerLeft"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory4" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerLeft"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory5" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerLeft"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory6" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerLeft"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Control" type="Control" parent="TextureRect/HBoxContainer"]
+custom_minimum_size = Vector2(2.795, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainerRight" type="GridContainer" parent="TextureRect/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="Memory7" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerRight"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory8" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerRight"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory9" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerRight"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory10" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerRight"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory11" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerRight"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Memory12" type="TextureRect" parent="TextureRect/HBoxContainer/GridContainerRight"]
+custom_minimum_size = Vector2(12, 12)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("3_pdfwl")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ClickZone" type="Control" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -100.0
+offset_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
