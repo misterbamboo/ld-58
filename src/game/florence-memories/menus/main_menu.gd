@@ -2,9 +2,14 @@ extends Control
 
 const FADE_DURATION: float = 1.5
 
+# Button position offsets (as percentage of background size)
+# Adjust these to compensate for transparent padding in button textures
+const BUTTON_PLAY_OFFSET: Vector2 = Vector2(-0.025, -0.065)  # No offset by default
+const BUTTON_EXIT_OFFSET: Vector2 = Vector2(-0.015, -0.065)  # No offset by default
+
 @onready var aspect_container = $AspectRatioContainer
-@onready var button_play = $AspectRatioContainer/Control/ButtonPlay
-@onready var button_credits = $AspectRatioContainer/Control/ButtonCredits
+@onready var button_play = $AspectRatioContainer/Control/TextureButtonPlay
+@onready var button_exit = $AspectRatioContainer/Control/TextureButtonExit
 @onready var bg_menu = $AspectRatioContainer/BG_Menu
 @onready var bg_tuto = $AspectRatioContainer/BG_Tuto
 
@@ -38,12 +43,13 @@ func position_buttons() -> void:
 	var bg_rect = $AspectRatioContainer/BG_Menu
 	var bg_size = bg_rect.size
 
-	# Position buttons relative to background
+	# Position buttons relative to background slots
 	# Since buttons are under Control (centered), we need to offset from center
 	var center_offset = bg_size / 2.0
 
-	button_play.position = (bg_size * Vector2(0.41, 0.68)) - center_offset
-	button_credits.position = (bg_size * Vector2(0.56, 0.68)) - center_offset
+	# Apply percentage-based offsets to compensate for transparent padding
+	button_play.position = (bg_size * Vector2(0.41, 0.68)) - center_offset + (bg_size * BUTTON_PLAY_OFFSET)
+	button_exit.position = (bg_size * Vector2(0.56, 0.68)) - center_offset + (bg_size * BUTTON_EXIT_OFFSET)
 
 func _on_button_play_pressed() -> void:
 	disable_buttons()
@@ -58,14 +64,14 @@ func start_tutorial_sequence() -> void:
 
 func disable_buttons() -> void:
 	button_play.disabled = true
-	button_credits.disabled = true
+	button_exit.disabled = true
 
 func fade_out_buttons() -> void:
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(button_play, "modulate:a", 0.0, FADE_DURATION)
-	tween.parallel().tween_property(button_credits, "modulate:a", 0.0, FADE_DURATION)
+	tween.parallel().tween_property(button_exit, "modulate:a", 0.0, FADE_DURATION)
 	await tween.finished
 
 func transition_menu_to_tutorial() -> void:
@@ -90,3 +96,12 @@ func fade_out_tutorial() -> void:
 	tween.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(bg_tuto, "modulate:a", 0.0, FADE_DURATION)
 	await tween.finished
+
+
+func _on_texture_button_exit_pressed() -> void:
+	if OS.has_feature("web"):
+		# On web, close the browser tab/window
+		JavaScriptBridge.eval("window.close();")
+	else:
+		# On desktop, quit the application
+		get_tree().quit()

@@ -1,10 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cogcyo5nevq4p"]
+[gd_scene load_steps=8 format=3 uid="uid://cogcyo5nevq4p"]
 
 [ext_resource type="Texture2D" uid="uid://q31kmqbxfxnv" path="res://backgrounds/BG_Menu.png" id="1_ct8su"]
 [ext_resource type="Script" uid="uid://c278ojwua15js" path="res://menus/main_menu.gd" id="1_ot3ob"]
 [ext_resource type="Texture2D" uid="uid://bngd0u254l1yj" path="res://backgrounds/BG_Tuto.png" id="3_rmsp1"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rmsp1"]
+[ext_resource type="Texture2D" uid="uid://bnfcq3a5fv2og" path="res://buttons/Exit_Bouton.png" id="4_lb38e"]
+[ext_resource type="Texture2D" uid="uid://cwb68oe7t3qr0" path="res://buttons/Exit_Bouton_Selected.png" id="5_7fxis"]
+[ext_resource type="Texture2D" uid="uid://h1osl1weyefv" path="res://buttons/Play_Bouton.png" id="6_k15nl"]
+[ext_resource type="Texture2D" uid="uid://c3hsg2ju835xw" path="res://buttons/Play_Bouton_Selected.png" id="7_4yyw3"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -42,30 +44,49 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ButtonPlay" type="Button" parent="AspectRatioContainer/Control"]
-layout_mode = 0
-offset_left = -123.79999
-offset_top = 108.0
-offset_right = -2.7999878
-offset_bottom = 150.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_colors/font_color = Color(0.3529412, 0.52156866, 0.6117647, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxEmpty_rmsp1")
-text = "Play"
+[node name="TextureButtonExit" type="TextureButton" parent="AspectRatioContainer/Control"]
+custom_minimum_size = Vector2(175, 175)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 19.200012
+offset_top = 40.0
+offset_right = 194.20001
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("4_lb38e")
+texture_pressed = ExtResource("4_lb38e")
+texture_hover = ExtResource("5_7fxis")
+texture_disabled = ExtResource("4_lb38e")
+texture_focused = ExtResource("4_lb38e")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="ButtonCredits" type="Button" parent="AspectRatioContainer/Control"]
-layout_mode = 0
-offset_left = 45.200012
-offset_top = 106.0
-offset_right = 168.20001
-offset_bottom = 152.07767
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_colors/font_color = Color(0.3529412, 0.52156866, 0.6117647, 1)
-theme_override_font_sizes/font_size = 30
-theme_override_styles/normal = SubResource("StyleBoxEmpty_rmsp1")
-text = "Credits"
+[node name="TextureButtonPlay" type="TextureButton" parent="AspectRatioContainer/Control"]
+custom_minimum_size = Vector2(175, 175)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -146.79999
+offset_top = 40.0
+offset_right = 28.200012
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("6_k15nl")
+texture_pressed = ExtResource("6_k15nl")
+texture_hover = ExtResource("7_4yyw3")
+texture_disabled = ExtResource("6_k15nl")
+texture_focused = ExtResource("6_k15nl")
+ignore_texture_size = true
+stretch_mode = 0
 
-[connection signal="pressed" from="AspectRatioContainer/Control/ButtonPlay" to="." method="_on_button_play_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Control/TextureButtonExit" to="." method="_on_texture_button_exit_pressed"]
+[connection signal="pressed" from="AspectRatioContainer/Control/TextureButtonPlay" to="." method="_on_button_play_pressed"]
