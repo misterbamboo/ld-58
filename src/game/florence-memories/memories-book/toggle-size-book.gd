@@ -1,4 +1,4 @@
-extends Control
+extends TextureRect
 
 const SIZE_SMALL: int = 100
 const SIZE_BIG: int = 600
@@ -18,8 +18,8 @@ const GRID_V_SEPARATION_BIG: int = 22
 var is_big: bool = false
 
 func _ready() -> void:
-	$TextureRect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	$TextureRect/ClickZone.gui_input.connect(_on_click_zone_input)
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$ClickZone.gui_input.connect(_on_click_zone_input)
 
 func _on_click_zone_input(event: InputEvent):
 	if event is InputEventMouseButton:
@@ -48,15 +48,14 @@ func get_scale_factor(desired_size: int) -> float:
 	return float(desired_size) / float(get_current_size())
 
 func animate_texture_rect(tween: Tween, desired_size: int) -> void:
-	var texture_rect = $TextureRect
-	var new_offset_left = texture_rect.offset_right - desired_size
-	var new_offset_top = texture_rect.offset_bottom - desired_size
+	var new_offset_left = offset_right - desired_size
+	var new_offset_top = offset_bottom - desired_size
 
-	tween.tween_property(texture_rect, "offset_left", new_offset_left, ANIMATION_DURATION)
-	tween.parallel().tween_property(texture_rect, "offset_top", new_offset_top, ANIMATION_DURATION)
+	tween.tween_property(self, "offset_left", new_offset_left, ANIMATION_DURATION)
+	tween.parallel().tween_property(self, "offset_top", new_offset_top, ANIMATION_DURATION)
 
 func animate_click_zone(tween: Tween, desired_size: int) -> void:
-	var click_zone = $TextureRect/ClickZone
+	var click_zone = $ClickZone
 	var new_offset_left = click_zone.offset_right - desired_size
 	var new_offset_top = click_zone.offset_bottom - desired_size
 
@@ -64,7 +63,7 @@ func animate_click_zone(tween: Tween, desired_size: int) -> void:
 	tween.parallel().tween_property(click_zone, "offset_top", new_offset_top, ANIMATION_DURATION)
 
 func animate_memory_container(tween: Tween, scale_factor: float) -> void:
-	var hbox = $TextureRect/HBoxContainer
+	var hbox = $HBoxContainer
 	var target_offset = get_hbox_target_offset()
 	var target_size = get_hbox_target_size()
 
@@ -81,8 +80,8 @@ func get_hbox_target_size() -> Vector2:
 
 func animate_memory_items(tween: Tween) -> void:
 	var memory_size = get_memory_item_size()
-	var left_grid = $TextureRect/HBoxContainer/GridContainerLeft
-	var right_grid = $TextureRect/HBoxContainer/GridContainerRight
+	var left_grid = $HBoxContainer/GridContainerLeft
+	var right_grid = $HBoxContainer/GridContainerRight
 
 	animate_grid_children(tween, left_grid, memory_size)
 	animate_grid_children(tween, right_grid, memory_size)

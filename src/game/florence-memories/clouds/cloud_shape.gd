@@ -123,3 +123,9 @@ func is_ready() -> bool:
 
 	ready_flag = true
 	return true
+
+func capture_memory() -> void:
+	start_fadeout()
+
+func get_cloud_image() -> Texture2D:
+	return cloud_image
