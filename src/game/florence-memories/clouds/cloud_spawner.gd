@@ -38,6 +38,11 @@ func _process(delta):
 	process_pending_initialization()
 
 func update_spawn_timer(delta: float):
+	# Safety check: ensure at least one shape is always present
+	if get_active_shapes_count() == 0:
+		for i in range(randi_range(1, 2)):
+			spawn_shape()
+
 	cloud_spawn_timer += delta
 	if cloud_spawn_timer >= next_cloud_spawn_time:
 		spawn_next_entity()
@@ -128,6 +133,13 @@ func initialize_shape(shape: CloudShape):
 	var meet_in_time = lifespan / 2.0
 
 	shape.initialize(meet_at_pos, direction, lifespan, meet_in_time)
+
+func get_active_shapes_count() -> int:
+	var count = 0
+	for child in get_children():
+		if child is CloudShape:
+			count += 1
+	return count
 
 func _on_shape_vanished(data: Dictionary):
 	spawn_shape_next = true
