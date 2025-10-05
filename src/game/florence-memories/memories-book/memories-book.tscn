@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://od2j2p2kj0ln"]
+[gd_scene load_steps=5 format=3 uid="uid://od2j2p2kj0ln"]
 
 [ext_resource type="Texture2D" uid="uid://cd8a6qrjmqtgn" path="res://memories-book/assets/memories-book.png" id="1_d8g1i"]
 [ext_resource type="Script" uid="uid://cnk6pyucjx6bw" path="res://memories-book/toggle-size-book.gd" id="1_snies"]
 [ext_resource type="Script" uid="uid://yw0s7txu4aek" path="res://memories-book/memory_collector.gd" id="2_collector"]
+[ext_resource type="Script" uid="uid://chuimsvoyhr63" path="res://memories-book/memory_tooltip.gd" id="4_0m3u1"]
 
 [node name="MemoriesBook" type="Control"]
 layout_mode = 3
@@ -162,3 +163,13 @@ offset_left = -100.0
 offset_top = -100.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="MemoryTooltip" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_0m3u1")

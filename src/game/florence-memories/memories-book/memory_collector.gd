@@ -7,6 +7,7 @@ const CURVE_HEIGHT: float = 100.0
 const MAX_FLYING_SPRITE_SIZE: float = 150.0
 
 var memory_slots: Array[Texture2D] = []
+var memory_data_list: Array = []
 var next_slot_index: int = 0
 var collected_texture_paths: Dictionary = {}
 
@@ -17,6 +18,7 @@ func _ready() -> void:
 
 func initialize_memory_slots() -> void:
 	memory_slots.resize(MAX_MEMORY_SLOTS)
+	memory_data_list.resize(MAX_MEMORY_SLOTS)
 
 func _on_highlight_clicked(data: Dictionary) -> void:
 	var shape = data.get("shape") as CloudShape
@@ -90,6 +92,12 @@ func on_animation_complete(sprite: Sprite2D, slot_index: int, texture: Texture2D
 func fill_memory_slot(slot_index: int, texture: Texture2D) -> void:
 	memory_slots[slot_index] = texture
 	collected_texture_paths[texture.resource_path] = true
+
+	var tooltip = $MemoryTooltip
+	if tooltip:
+		var memory_data = tooltip.get_memory_data_for_texture(texture.resource_path)
+		memory_data_list[slot_index] = memory_data
+
 	var memory_node = get_memory_node_by_index(slot_index)
 	if memory_node:
 		memory_node.texture = texture
@@ -118,3 +126,8 @@ func get_next_available_slot() -> int:
 func is_memory_already_collected(texture: Texture2D) -> bool:
 	var texture_path = texture.resource_path
 	return collected_texture_paths.has(texture_path)
+
+func get_memory_data(slot_index: int):
+	if slot_index >= 0 and slot_index < memory_data_list.size():
+		return memory_data_list[slot_index]
+	return null

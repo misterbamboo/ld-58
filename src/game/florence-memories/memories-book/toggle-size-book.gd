@@ -19,16 +19,34 @@ var is_big: bool = false
 
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	$ClickZone.mouse_filter = Control.MOUSE_FILTER_PASS
 	$ClickZone.gui_input.connect(_on_click_zone_input)
+
+func _input(event: InputEvent) -> void:
+	if not is_big:
+		return
+
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			var mouse_pos = get_global_mouse_position()
+			if not get_global_rect().has_point(mouse_pos):
+				toggle_size()
+				get_viewport().set_input_as_handled()
 
 func _on_click_zone_input(event: InputEvent):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			print("Custom zone clicked!")
 			toggle_size()
 
 func toggle_size() -> void:
 	is_big = !is_big
+
+	# Disable ClickZone in BIG mode to allow hover events on memories
+	if is_big:
+		$ClickZone.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	else:
+		$ClickZone.mouse_filter = Control.MOUSE_FILTER_PASS
+
 	var tween = create_tween()
 	var desired_size = get_desired_size()
 	var scale_factor = get_scale_factor(desired_size)
@@ -107,3 +125,6 @@ func get_grid_h_separation() -> int:
 
 func get_grid_v_separation() -> int:
 	return GRID_V_SEPARATION_BIG if is_big else GRID_V_SEPARATION_SMALL
+
+func is_in_big_mode() -> bool:
+	return is_big
