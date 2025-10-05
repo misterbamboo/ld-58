@@ -9,7 +9,9 @@ class OccupiedRegion:
 @export var cloud_scenes: Array[PackedScene] = []
 @export var shape_scenes: Array[PackedScene] = []
 
-const PADDING_PERCENT: float = 0.2
+const SHAPE_PADDING_SIDES: float = 0.05  # 5% padding for left, top, right
+const SHAPE_PADDING_BOTTOM: float = 0.15  # 15% padding for bottom
+const CLOUD_PADDING_RIGHT: float = -0.05  # Allow 5% outside right edge
 const SHAPE_SPAWN_INTERVAL: float = 30.0
 const CLOUD_SPAWN_INTERVAL: float = 2.0
 const CLOUD_LIFESPAN: float = 30.0
@@ -50,15 +52,29 @@ func check_viewport_resize():
 		last_viewport_size = current_size
 		screen_size = current_size
 
-func get_spawn_bounds() -> Dictionary:
-	var padding_x = screen_size.x * PADDING_PERCENT
-	var padding_y = screen_size.y * PADDING_PERCENT
+func get_shape_spawn_bounds() -> Dictionary:
+	# CloudShapes: 5% padding on left/top/right, 15% padding on bottom
+	var padding_left = screen_size.x * SHAPE_PADDING_SIDES
+	var padding_right = screen_size.x * SHAPE_PADDING_SIDES
+	var padding_top = screen_size.y * SHAPE_PADDING_SIDES
+	var padding_bottom = screen_size.y * SHAPE_PADDING_BOTTOM
 
 	return {
-		"min_x": padding_x,
-		"max_x": screen_size.x - padding_x,
-		"min_y": padding_y,
-		"max_y": screen_size.y - padding_y
+		"min_x": padding_left,
+		"max_x": screen_size.x - padding_right,
+		"min_y": padding_top,
+		"max_y": screen_size.y - padding_bottom
+	}
+
+func get_cloud_spawn_bounds() -> Dictionary:
+	# Individual clouds: full screen, can spawn 5% outside right edge
+	var extend_right = screen_size.x * abs(CLOUD_PADDING_RIGHT)
+
+	return {
+		"min_x": 0,
+		"max_x": screen_size.x + extend_right,
+		"min_y": 0,
+		"max_y": screen_size.y
 	}
 
 func update_spawn_timers(delta: float):
@@ -128,7 +144,7 @@ func process_pending_initialization():
 			i += 1
 
 func initialize_cloud(cloud: Cloud):
-	var bounds = get_spawn_bounds()
+	var bounds = get_cloud_spawn_bounds()
 	var spawn_x = randf_range(bounds.min_x, bounds.max_x)
 	var spawn_y = randf_range(bounds.min_y, bounds.max_y)
 	var meet_at_pos = Vector2(spawn_x, spawn_y)
@@ -175,7 +191,7 @@ func release_occupied_region(shape: CloudShape):
 			return
 
 func find_non_overlapping_position() -> Vector2:
-	var bounds = get_spawn_bounds()
+	var bounds = get_shape_spawn_bounds()
 	var max_attempts = 10
 	for attempt in range(max_attempts):
 		var spawn_x = randf_range(bounds.min_x, bounds.max_x)
