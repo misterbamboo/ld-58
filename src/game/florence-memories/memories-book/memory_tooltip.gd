@@ -23,23 +23,19 @@ func _ready() -> void:
 
 func initialize_memory_configs() -> void:
 	memory_configs = {
-		"tractor": MemoryData.new(
-			"Tractor",
-			"A tractor cloud that reminds me of when Grandpa let me sit on his lap and steer the big red one in the field."
+		"bear": MemoryData.new(
+			"Teddy Bear",
+			"A teddy bear cloud that reminds me of my favorite teddy — the one I took everywhere, even when he was missing an ear but still smiled just for me."
 		),
-		"train": MemoryData.new(
-			"Train",
-			"A train cloud that makes me think of the choo-choo we watched together, waving as it passed by."
-		),
-		"tricycle": MemoryData.new(
-			"Tricycle",
-			"A tricycle cloud that looks just like my first ride, when Mom ran beside me and laughed every time I wobbled."
+		"butterfly": MemoryData.new(
+			"Butterfly",
+			"A butterfly cloud that reminds me of chasing colors in the garden while everyone cheered me on."
 		),
 		"car": MemoryData.new(
-			"Car",
+			"Road Trip",
 			"A car cloud that reminds me of our family trips — snacks, songs, and everyone trying to spot the first moose."
 		),
-		"dinosaur": MemoryData.new(
+		"dino": MemoryData.new(
 			"Dinosaur",
 			"A dinosaur cloud that makes me think of the little green toy Grandpa gave me, and how I made it roar louder than him."
 		),
@@ -47,29 +43,33 @@ func initialize_memory_configs() -> void:
 			"Dog",
 			"A dog cloud that reminds me of cuddling with our puppy under a blanket after the rain."
 		),
-		"elephant": MemoryData.new(
-			"Elephant",
-			"An elephant cloud that makes me remember my first zoo trip — I held Grandma's hand so tight when it trumpeted!"
+		"fer": MemoryData.new(
+			"Horseshoe",
+			"A horseshoe cloud that makes me think of Suzy, the horse my mom rides. She looked so happy when petting her soft fur after every ride."
 		),
 		"flower": MemoryData.new(
 			"Flower",
 			"A flower cloud that reminds me of picking daisies for Mom and how she smiled like sunshine."
 		),
-		"piggybank": MemoryData.new(
-			"Piggy Bank",
-			"A piggy bank cloud that makes me think of the coins Dad helped me save for my favorite candy."
-		),
 		"rainbow": MemoryData.new(
 			"Rainbow",
-			"A rainbow cloud that reminds me that even after the rain, something beautiful always comes."
+			"A rainbow cloud that reminds me of the moment Dad looked so happy while explaining how rainbows are created — like magic made of light."
 		),
-		"shoehorse": MemoryData.new(
-			"Horseshoe",
-			"A horseshoe cloud that makes me think of the lucky charm Grandma hung by the door — she said it keeps joy inside."
+		"rocher": MemoryData.new(
+			"Rocher Percé",
+			"A Rocher Percé cloud that makes me think of our trip to Gaspésie, when Dad said the rock had a hole big enough to let dreams sail through."
 		),
-		"butterfly": MemoryData.new(
-			"Butterfly",
-			"A butterfly cloud that reminds me of chasing colors in the garden while everyone cheered me on."
+		"star": MemoryData.new(
+			"Star",
+			"A star cloud that reminds me of Grandma looking at the sky with me by the campfire, surrounded by all my family, when a shooting star crossed above us and everyone made a wish."
+		),
+		"strawberry": MemoryData.new(
+			"Strawberry",
+			"A strawberry cloud that reminds me of that day when Dad, Mom, and I all had red lips from eating too many berries together."
+		),
+		"trefle": MemoryData.new(
+			"Trèfle",
+			"A clover cloud that reminds me of searching for the one with four leaves while Grandpa said luck finds those who keep smiling."
 		)
 	}
 
