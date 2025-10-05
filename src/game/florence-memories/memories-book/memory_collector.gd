@@ -51,11 +51,19 @@ func create_flying_sprite(texture: Texture2D, start_pos: Vector2) -> Sprite2D:
 	var sprite = Sprite2D.new()
 	sprite.texture = texture
 	sprite.global_position = start_pos
-	print("[MemoryCollector] Created flying sprite at position: ", start_pos)
+
+	# Scale down to reasonable size while maintaining aspect ratio
+	var texture_size = texture.get_size()
+	var max_dimension = max(texture_size.x, texture_size.y)
+	var initial_scale = MAX_FLYING_SPRITE_SIZE / max_dimension
+	sprite.scale = Vector2(initial_scale, initial_scale)
+
+	print("[MemoryCollector] Created flying sprite at position: ", start_pos, " with initial scale: ", initial_scale)
 	return sprite
 
 func animate_with_curve(sprite: Sprite2D, target_pos: Vector2, slot_index: int, texture: Texture2D) -> void:
 	var start_pos = sprite.global_position
+	var initial_scale = sprite.scale
 	var tween = create_tween()
 
 	var arc_peak_y = min(start_pos.y, target_pos.y) - CURVE_HEIGHT
@@ -67,7 +75,9 @@ func animate_with_curve(sprite: Sprite2D, target_pos: Vector2, slot_index: int, 
 	tween.tween_property(sprite, "global_position", mid_pos, ANIMATION_DURATION / 2.0)
 	tween.tween_property(sprite, "global_position", target_pos, ANIMATION_DURATION / 2.0)
 
-	tween.parallel().tween_property(sprite, "scale", Vector2(0.3, 0.3), ANIMATION_DURATION)
+	# Scale down to memory slot size (30% of initial scale)
+	var final_scale = initial_scale * 0.3
+	tween.parallel().tween_property(sprite, "scale", final_scale, ANIMATION_DURATION)
 
 	tween.finished.connect(func(): on_animation_complete(sprite, slot_index, texture))
 

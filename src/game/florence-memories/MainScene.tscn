@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddksst3cw4wam"]
+[gd_scene load_steps=9 format=3 uid="uid://ddksst3cw4wam"]
 
 [ext_resource type="PackedScene" uid="uid://dwafuug7oubye" path="res://clouds/cloud-shapes/dog-cloud/dog-cloud.tscn" id="1_3mqji"]
 [ext_resource type="Script" uid="uid://cwchnxb0a6n5d" path="res://clouds/cloud_spawner.gd" id="2_rf2cd"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://kksanuhdvdff" path="res://clouds/cloud-shapes/tricycle-cloud/tricycle-cloud.tscn" id="5_a814b"]
 [ext_resource type="PackedScene" uid="uid://44gee11omn7r" path="res://clouds/cloud-shapes/dino-cloud/dino-cloud.tscn" id="6_5crlr"]
 [ext_resource type="PackedScene" uid="uid://od2j2p2kj0ln" path="res://memories-book/memories-book.tscn" id="7_5crlr"]
+[ext_resource type="PackedScene" uid="uid://dxbgxb73hlj4j" path="res://musics/MusicOrchestrator.tscn" id="8_hbc2u"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -31,3 +32,5 @@ anchor_left = 1.0
 anchor_top = 1.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="MusicOrchestrator" parent="." instance=ExtResource("8_hbc2u")]
