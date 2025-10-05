@@ -9,10 +9,10 @@
 stream = ExtResource("1_4dh1a")
 volume_db = -30.0
 autoplay = true
-parameters/looping = false
+parameters/looping = true
 
 [node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_5uea7")
 volume_db = -30.0
 autoplay = true
-parameters/looping = false
+parameters/looping = true
