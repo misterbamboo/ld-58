@@ -107,7 +107,7 @@ func all_clouds_faded() -> bool:
 
 func destroy_shape():
 	has_vanished = true
-	MessageBus.publish("shape_vanished", {"shape": self})
+	MessageBus.publish(CloudEvents.SHAPE_VANISHED, {"shape": self})
 	queue_free()
 
 func get_internal_time() -> float:
@@ -133,13 +133,16 @@ func capture_memory() -> void:
 	print("[CloudShape] capture_memory() called - texture: ", capture_texture, " position: ", capture_position)
 
 	# Publish event immediately - sprite will appear and animate while clouds fade
-	MessageBus.publish("shape_fully_faded", {
+	MessageBus.publish(CloudEvents.SHAPE_FULLY_FADED, {
 		"shape": self,
 		"texture": capture_texture,
 		"position": capture_position
 	})
 
 	start_fadeout()
+
+	# Notify spawner immediately so replacement shapes spawn right away
+	MessageBus.publish(CloudEvents.SHAPE_VANISHED, {"shape": self})
 
 func get_cloud_image() -> Texture2D:
 	return cloud_image

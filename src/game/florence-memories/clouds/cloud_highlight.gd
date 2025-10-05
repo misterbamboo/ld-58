@@ -42,7 +42,7 @@ func _input(event):
 			var is_in_time_window = current_time >= window_start and current_time <= window_end
 			if is_in_time_window:
 				is_captured = true
-				MessageBus.publish("highlight_clicked", {"highlight": self, "shape": parent_shape})
+				MessageBus.publish(CloudEvents.HIGHLIGHT_CLICKED, {"highlight": self, "shape": parent_shape})
 
 func precompute_line_bounds():
 	if points.size() < 2:

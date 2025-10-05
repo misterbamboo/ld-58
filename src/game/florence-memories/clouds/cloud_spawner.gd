@@ -22,7 +22,7 @@ var pending_shapes: Array[CloudShape] = []
 func _ready():
 	screen_size = get_viewport_rect().size
 	next_cloud_spawn_time = randf_range(min_cloud_interval, max_cloud_interval)
-	MessageBus.subscribe("shape_vanished", _on_shape_vanished)
+	MessageBus.subscribe(CloudEvents.SHAPE_VANISHED, _on_shape_vanished)
 	spawn_initial_entities()
 
 func spawn_initial_entities():
@@ -74,7 +74,7 @@ func spawn_shape():
 	add_child(shape_instance)
 	pending_shapes.append(shape_instance)
 
-	MessageBus.publish("shape_spawned", {"shape": shape_instance})
+	MessageBus.publish(CloudEvents.SHAPE_SPAWNED, {"shape": shape_instance})
 
 func spawn_cloud():
 	if cloud_scenes.is_empty():

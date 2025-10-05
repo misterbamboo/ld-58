@@ -74,7 +74,7 @@ func check_if_vanished():
 	var current_time = get_current_time()
 	if current_time >= lifespan:
 		if not is_managed_by_shape:
-			MessageBus.publish("cloud_vanished", {"cloud": self})
+			MessageBus.publish(CloudEvents.CLOUD_VANISHED, {"cloud": self})
 			queue_free()
 		else:
 			visible = false

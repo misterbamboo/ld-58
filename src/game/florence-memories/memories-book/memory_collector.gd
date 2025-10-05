@@ -11,8 +11,8 @@ var next_slot_index: int = 0
 
 func _ready() -> void:
 	initialize_memory_slots()
-	MessageBus.subscribe("highlight_clicked", _on_highlight_clicked)
-	MessageBus.subscribe("shape_fully_faded", _on_shape_fully_faded)
+	MessageBus.subscribe(CloudEvents.HIGHLIGHT_CLICKED, _on_highlight_clicked)
+	MessageBus.subscribe(CloudEvents.SHAPE_FULLY_FADED, _on_shape_fully_faded)
 
 func initialize_memory_slots() -> void:
 	memory_slots.resize(MAX_MEMORY_SLOTS)
