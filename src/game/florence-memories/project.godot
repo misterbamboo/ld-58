@@ -28,4 +28,4 @@ project/assembly_name="Florence Memories"
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.6979053, 0.8744933, 1, 1)
+environment/defaults/default_clear_color=Color(0.12941177, 0.75686276, 1, 1)

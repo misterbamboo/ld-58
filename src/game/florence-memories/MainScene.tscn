@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ddksst3cw4wam"]
+[gd_scene load_steps=11 format=3 uid="uid://ddksst3cw4wam"]
 
 [ext_resource type="PackedScene" uid="uid://dwafuug7oubye" path="res://clouds/cloud-shapes/dog-cloud/dog-cloud.tscn" id="1_3mqji"]
 [ext_resource type="Script" uid="uid://cwchnxb0a6n5d" path="res://clouds/cloud_spawner.gd" id="2_rf2cd"]
@@ -7,7 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://kksanuhdvdff" path="res://clouds/cloud-shapes/tricycle-cloud/tricycle-cloud.tscn" id="5_a814b"]
 [ext_resource type="PackedScene" uid="uid://44gee11omn7r" path="res://clouds/cloud-shapes/dino-cloud/dino-cloud.tscn" id="6_5crlr"]
 [ext_resource type="PackedScene" uid="uid://od2j2p2kj0ln" path="res://memories-book/memories-book.tscn" id="7_5crlr"]
+[ext_resource type="Texture2D" uid="uid://b02juym75ynpc" path="res://backgrounds/BG_Game_01.png" id="7_torvr"]
 [ext_resource type="PackedScene" uid="uid://dxbgxb73hlj4j" path="res://musics/MusicOrchestrator.tscn" id="8_hbc2u"]
+[ext_resource type="PackedScene" uid="uid://cogcyo5nevq4p" path="res://menus/MainMenu.tscn" id="10_8xkvn"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -25,6 +27,17 @@ spawn_y_min = 50.0
 spawn_y_max = 500.0
 metadata/_custom_type_script = "uid://cwchnxb0a6n5d"
 
+[node name="BgGame01" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_torvr")
+expand_mode = 1
+stretch_mode = 6
+
 [node name="MemoriesBook" parent="." instance=ExtResource("7_5crlr")]
 layout_mode = 1
 anchors_preset = 3
@@ -34,3 +47,6 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="MusicOrchestrator" parent="." instance=ExtResource("8_hbc2u")]
+
+[node name="MainMenu" parent="." instance=ExtResource("10_8xkvn")]
+layout_mode = 1

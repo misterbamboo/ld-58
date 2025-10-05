@@ -8,6 +8,7 @@ const MAX_FLYING_SPRITE_SIZE: float = 150.0
 
 var memory_slots: Array[Texture2D] = []
 var next_slot_index: int = 0
+var collected_texture_paths: Dictionary = {}
 
 func _ready() -> void:
 	initialize_memory_slots()
@@ -19,7 +20,7 @@ func initialize_memory_slots() -> void:
 
 func _on_highlight_clicked(data: Dictionary) -> void:
 	var shape = data.get("shape") as CloudShape
-	if shape and has_available_slot():
+	if shape:
 		shape.capture_memory()
 
 func _on_shape_fully_faded(data: Dictionary) -> void:
@@ -29,7 +30,7 @@ func _on_shape_fully_faded(data: Dictionary) -> void:
 
 	print("[MemoryCollector] Texture: ", texture, " | Position: ", start_pos, " | Has slot: ", has_available_slot())
 
-	if texture and has_available_slot():
+	if texture and has_available_slot() and not is_memory_already_collected(texture):
 		print("[MemoryCollector] Waiting ", WAIT_AFTER_FADEOUT, " seconds before spawning sprite")
 		await get_tree().create_timer(WAIT_AFTER_FADEOUT).timeout
 		spawn_and_animate_memory(texture, start_pos)
@@ -88,6 +89,7 @@ func on_animation_complete(sprite: Sprite2D, slot_index: int, texture: Texture2D
 
 func fill_memory_slot(slot_index: int, texture: Texture2D) -> void:
 	memory_slots[slot_index] = texture
+	collected_texture_paths[texture.resource_path] = true
 	var memory_node = get_memory_node_by_index(slot_index)
 	if memory_node:
 		memory_node.texture = texture
@@ -112,3 +114,7 @@ func get_next_available_slot() -> int:
 	if has_available_slot():
 		return next_slot_index
 	return -1
+
+func is_memory_already_collected(texture: Texture2D) -> bool:
+	var texture_path = texture.resource_path
+	return collected_texture_paths.has(texture_path)

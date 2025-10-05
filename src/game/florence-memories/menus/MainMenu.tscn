@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=3 uid="uid://cogcyo5nevq4p"]
+
+[ext_resource type="Texture2D" uid="uid://q31kmqbxfxnv" path="res://backgrounds/BG_Menu.png" id="1_ct8su"]
+[ext_resource type="Script" uid="uid://c278ojwua15js" path="res://menus/main_menu.gd" id="1_ot3ob"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rmsp1"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ot3ob")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.8
+stretch_mode = 3
+
+[node name="BG_Menu" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("1_ct8su")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Control" type="Control" parent="AspectRatioContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="ButtonPlay" type="Button" parent="AspectRatioContainer/Control"]
+layout_mode = 0
+offset_left = -123.79999
+offset_top = 108.0
+offset_right = -2.7999878
+offset_bottom = 150.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.3529412, 0.52156866, 0.6117647, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rmsp1")
+text = "Play"
+
+[node name="ButtonCredits" type="Button" parent="AspectRatioContainer/Control"]
+layout_mode = 0
+offset_left = 45.200012
+offset_top = 106.0
+offset_right = 168.20001
+offset_bottom = 152.07767
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0.3529412, 0.52156866, 0.6117647, 1)
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_rmsp1")
+text = "Credits"
+
+[connection signal="pressed" from="AspectRatioContainer/Control/ButtonPlay" to="." method="_on_button_play_pressed"]
