@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://jqv3i4ctb7ae"]
+
+[ext_resource type="Script" uid="uid://dtetvg1t02xgs" path="res://clouds/cloud_shape.gd" id="1_cx7dp"]
+[ext_resource type="Texture2D" uid="uid://6b54sbdlro4e" path="res://clouds/assets/cloud-shapes/Cloud_Rainbow.png" id="2_vhwx5"]
+[ext_resource type="PackedScene" uid="uid://bg8iagla2fj76" path="res://clouds/prefabs/cloud_1.tscn" id="3_3pl1y"]
+[ext_resource type="PackedScene" uid="uid://cdqyu2whskues" path="res://clouds/prefabs/cloud_3.tscn" id="5_33w03"]
+[ext_resource type="PackedScene" uid="uid://bv77qcnkwh7iq" path="res://clouds/prefabs/cloud_5.tscn" id="6_q6jpo"]
+[ext_resource type="PackedScene" uid="uid://cwgoc8v1nx1fv" path="res://clouds/prefabs/cloud_4.tscn" id="7_c1v1w"]
+[ext_resource type="Script" uid="uid://3cwvwcqjval4" path="res://clouds/cloud_highlight.gd" id="8_1aoao"]
+
+[node name="RainbowCloudShape" type="Node2D"]
+script = ExtResource("1_cx7dp")
+cloud_image = ExtResource("2_vhwx5")
+
+[node name="RainbowCloud" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_vhwx5")
+
+[node name="Cloud" parent="." instance=ExtResource("3_3pl1y")]
+position = Vector2(-70, 22)
+scale = Vector2(2.3672035, 2.3672035)
+
+[node name="Cloud2" parent="." instance=ExtResource("3_3pl1y")]
+position = Vector2(70, 21)
+scale = Vector2(2.3672035, 2.3672035)
+
+[node name="Cloud3" parent="." instance=ExtResource("5_33w03")]
+position = Vector2(-72, 48)
+
+[node name="Cloud4" parent="." instance=ExtResource("5_33w03")]
+position = Vector2(71, 48)
+
+[node name="Cloud5" parent="." instance=ExtResource("6_q6jpo")]
+position = Vector2(-60, -22)
+scale = Vector2(2.8890514, 2.8890514)
+
+[node name="Cloud6" parent="." instance=ExtResource("6_q6jpo")]
+position = Vector2(55.999985, -20)
+scale = Vector2(2.8890514, 2.8890514)
+
+[node name="Cloud7" parent="." instance=ExtResource("7_c1v1w")]
+position = Vector2(0, -59)
+scale = Vector2(3.5502448, 3.5502448)
+
+[node name="HighlightLines" type="Line2D" parent="."]
+points = PackedVector2Array(-16, -20, -32, -6, -40, 9, -38, 18, -25, 25, -21, 35, -23, 44, -28, 50, -38, 54, -55, 49, -64, 55, -73, 57, -84, 53, -88, 48, -100, 50, -112, 46, -116, 35, -116, 22, -109, 12, -97, 8, -89, 7, -88, -5, -84, -23, -74, -39, -62, -51, -45, -61, -25, -68, -3, -71, 20, -69, 39, -62, 55, -54, 77, -37, 85, -22, 89, -8, 91, 8, 106, 11, 116, 19, 118, 27, 115, 40, 108, 48, 99, 52, 88, 50, 80, 56, 65, 57, 54, 51, 46, 54, 36, 54, 24, 46, 20, 37, 24, 21, 35, 15, 38, 10, 37, 1, 29, -11, 18, -18, 10, -21, -3, -22)
+closed = true
+width = 8.745
+default_color = Color(0, 0.6117647, 1, 1)
+joint_mode = 2
+antialiased = true
+script = ExtResource("8_1aoao")

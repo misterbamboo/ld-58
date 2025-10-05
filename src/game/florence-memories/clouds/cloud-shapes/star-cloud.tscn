@@ -1,0 +1,101 @@
+[gd_scene load_steps=9 format=3 uid="uid://bk3vl85ad74aj"]
+
+[ext_resource type="Script" uid="uid://dtetvg1t02xgs" path="res://clouds/cloud_shape.gd" id="1_1ejny"]
+[ext_resource type="Texture2D" uid="uid://dbjykgnpewo7r" path="res://clouds/assets/cloud-shapes/Cloud_Star.png" id="2_1ejny"]
+[ext_resource type="PackedScene" uid="uid://bv77qcnkwh7iq" path="res://clouds/prefabs/cloud_5.tscn" id="3_7wsp2"]
+[ext_resource type="PackedScene" uid="uid://cwgoc8v1nx1fv" path="res://clouds/prefabs/cloud_4.tscn" id="4_2vyc7"]
+[ext_resource type="PackedScene" uid="uid://cdqyu2whskues" path="res://clouds/prefabs/cloud_3.tscn" id="5_xktg1"]
+[ext_resource type="PackedScene" uid="uid://b1ovymibj6bjh" path="res://clouds/prefabs/cloud_2.tscn" id="6_k6euv"]
+[ext_resource type="PackedScene" uid="uid://bg8iagla2fj76" path="res://clouds/prefabs/cloud_1.tscn" id="7_b8hgg"]
+[ext_resource type="Script" uid="uid://3cwvwcqjval4" path="res://clouds/cloud_highlight.gd" id="8_lcqja"]
+
+[node name="StarCloudShape" type="Node2D"]
+script = ExtResource("1_1ejny")
+cloud_image = ExtResource("2_1ejny")
+
+[node name="StarCloud" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_1ejny")
+
+[node name="Cloud" parent="." instance=ExtResource("7_b8hgg")]
+position = Vector2(-96.99999, -3)
+scale = Vector2(1.2557504, 1.2557504)
+
+[node name="Cloud2" parent="." instance=ExtResource("7_b8hgg")]
+position = Vector2(-58.999996, 10)
+scale = Vector2(1.3876345, 1.3876345)
+
+[node name="Cloud3" parent="." instance=ExtResource("7_b8hgg")]
+position = Vector2(58.000004, -12.000001)
+scale = Vector2(2.024148, 2.024148)
+
+[node name="Cloud4" parent="." instance=ExtResource("6_k6euv")]
+position = Vector2(33, 36)
+
+[node name="Cloud5" parent="." instance=ExtResource("6_k6euv")]
+position = Vector2(57, 30)
+
+[node name="Cloud6" parent="." instance=ExtResource("6_k6euv")]
+position = Vector2(74, 18)
+
+[node name="Cloud7" parent="." instance=ExtResource("6_k6euv")]
+position = Vector2(96, 8)
+
+[node name="Cloud8" parent="." instance=ExtResource("6_k6euv")]
+position = Vector2(-96, -36)
+
+[node name="Cloud9" parent="." instance=ExtResource("5_xktg1")]
+position = Vector2(-83, -34)
+
+[node name="Cloud10" parent="." instance=ExtResource("5_xktg1")]
+position = Vector2(47, 15)
+scale = Vector2(1.6141706, 1.6141706)
+
+[node name="Cloud11" parent="." instance=ExtResource("4_2vyc7")]
+position = Vector2(-8.999999, -58)
+scale = Vector2(2.032212, 2.032212)
+
+[node name="Cloud12" parent="." instance=ExtResource("4_2vyc7")]
+position = Vector2(38.000004, -51)
+scale = Vector2(2.0432746, 2.0432746)
+
+[node name="Cloud13" parent="." instance=ExtResource("4_2vyc7")]
+position = Vector2(-66, -19)
+scale = Vector2(1.482039, 1.482039)
+
+[node name="Cloud14" parent="." instance=ExtResource("4_2vyc7")]
+position = Vector2(-17, -33)
+scale = Vector2(1.8519651, 1.8519651)
+
+[node name="Cloud15" parent="." instance=ExtResource("4_2vyc7")]
+position = Vector2(-57, -41)
+
+[node name="Cloud16" parent="." instance=ExtResource("3_7wsp2")]
+position = Vector2(26, -23.000002)
+scale = Vector2(2.0836148, 2.0836148)
+
+[node name="Cloud17" parent="." instance=ExtResource("3_7wsp2")]
+position = Vector2(-89, -44)
+
+[node name="Cloud18" parent="." instance=ExtResource("3_7wsp2")]
+position = Vector2(76, -24.000002)
+scale = Vector2(1.8934848, 1.8934848)
+
+[node name="Cloud19" parent="." instance=ExtResource("4_2vyc7")]
+position = Vector2(24, -66)
+
+[node name="Cloud20" parent="." instance=ExtResource("6_k6euv")]
+position = Vector2(-86, 20)
+
+[node name="Cloud21" parent="." instance=ExtResource("6_k6euv")]
+position = Vector2(-72, 30)
+
+[node name="HighlightLines" type="Line2D" parent="."]
+points = PackedVector2Array(-40, 0, -34, 11, -35, 25, -44, 27, -59, 24, -67, 39, -76, 47, -86, 39, -94, 27, -96, 17, -116, 11, -121, 0, -118, -7, -101, -16, -103, -27, -102, -46, -91, -52, -81, -45, -72, -36, -56, -46, -36, -57, -9, -66, 20, -68, 46, -62, 66, -51, 83, -36, 92, -24, 100, -2, 104, 21, 96, 25, 79, 11, 75, 36, 62, 27, 63, 41, 59, 49, 43, 37, 38, 52, 30, 52, 28, 43, 25, 25, 21, 10, 10, -4, -3, -13, -17, -17, -33, -14, -48, -7)
+closed = true
+width = 8.745
+default_color = Color(0, 0.6117647, 1, 1)
+joint_mode = 2
+antialiased = true
+script = ExtResource("8_lcqja")

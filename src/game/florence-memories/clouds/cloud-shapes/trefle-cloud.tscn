@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://ffosy5ouk40a"]
+
+[ext_resource type="Script" uid="uid://dtetvg1t02xgs" path="res://clouds/cloud_shape.gd" id="1_eod7e"]
+[ext_resource type="Texture2D" uid="uid://bhkrrktp1otp2" path="res://clouds/assets/cloud-shapes/Cloud_trefle.png" id="2_d0hyy"]
+[ext_resource type="PackedScene" uid="uid://bg8iagla2fj76" path="res://clouds/prefabs/cloud_1.tscn" id="3_bu55y"]
+[ext_resource type="PackedScene" uid="uid://cdqyu2whskues" path="res://clouds/prefabs/cloud_3.tscn" id="5_pukf1"]
+[ext_resource type="PackedScene" uid="uid://cwgoc8v1nx1fv" path="res://clouds/prefabs/cloud_4.tscn" id="6_6f8jx"]
+[ext_resource type="PackedScene" uid="uid://bv77qcnkwh7iq" path="res://clouds/prefabs/cloud_5.tscn" id="7_x2xo1"]
+[ext_resource type="Script" uid="uid://3cwvwcqjval4" path="res://clouds/cloud_highlight.gd" id="8_ko8o3"]
+
+[node name="TrefleCloudShape" type="Node2D"]
+script = ExtResource("1_eod7e")
+cloud_image = ExtResource("2_d0hyy")
+
+[node name="TrefleCloud" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_d0hyy")
+
+[node name="Cloud" parent="." instance=ExtResource("3_bu55y")]
+position = Vector2(0, 38.000004)
+scale = Vector2(1.9925497, 1.9925497)
+
+[node name="Cloud2" parent="." instance=ExtResource("3_bu55y")]
+position = Vector2(-52, -34)
+
+[node name="Cloud3" parent="." instance=ExtResource("3_bu55y")]
+position = Vector2(53, -29)
+scale = Vector2(1.3261578, 1.3261578)
+
+[node name="Cloud4" parent="." instance=ExtResource("5_pukf1")]
+position = Vector2(-47, 16)
+scale = Vector2(1.567608, 1.567608)
+
+[node name="Cloud5" parent="." instance=ExtResource("5_pukf1")]
+position = Vector2(48.000004, 23)
+scale = Vector2(1.4092221, 1.4092221)
+
+[node name="Cloud6" parent="." instance=ExtResource("5_pukf1")]
+position = Vector2(1.1920929e-07, -49)
+scale = Vector2(2.0514731, 2.0514731)
+
+[node name="Cloud7" parent="." instance=ExtResource("6_6f8jx")]
+position = Vector2(4, 2)
+scale = Vector2(2.117889, 2.117889)
+
+[node name="Cloud8" parent="." instance=ExtResource("7_x2xo1")]
+position = Vector2(-59, 3.0000005)
+scale = Vector2(1.7805516, 1.7805516)
+
+[node name="Cloud9" parent="." instance=ExtResource("7_x2xo1")]
+position = Vector2(58, 9)
+scale = Vector2(1.8524551, 1.8524551)
+
+[node name="Cloud10" parent="." instance=ExtResource("6_6f8jx")]
+position = Vector2(-36, -18)
+scale = Vector2(1.7051941, 1.7051941)
+
+[node name="Cloud11" parent="." instance=ExtResource("6_6f8jx")]
+position = Vector2(18, -18)
+scale = Vector2(2.1409607, 2.1409607)
+
+[node name="Cloud12" parent="." instance=ExtResource("5_pukf1")]
+position = Vector2(-17, -60.000004)
+scale = Vector2(1.435591, 1.435591)
+
+[node name="Cloud13" parent="." instance=ExtResource("5_pukf1")]
+position = Vector2(18, -61)
+scale = Vector2(1.5543091, 1.5543091)
+
+[node name="Cloud14" parent="." instance=ExtResource("5_pukf1")]
+position = Vector2(59, -13)
+
+[node name="Cloud15" parent="." instance=ExtResource("5_pukf1")]
+position = Vector2(-19, 63)
+
+[node name="Cloud16" parent="." instance=ExtResource("5_pukf1")]
+position = Vector2(16, 64)
+
+[node name="HighlightLines" type="Line2D" parent="."]
+points = PackedVector2Array(-42, 35, -56, 36, -67, 28, -72, 14, -69, -1, -72, -19, -63, -36, -49, -43, -35, -31, -25, -23, -31, -38, -39, -50, -32, -64, -15, -73, -2, -70, 11, -74, 24, -69, 38, -57, 36, -42, 21, -21, 40, -38, 56, -40, 69, -29, 72, -17, 69, -1, 71, 18, 65, 34, 54, 41, 41, 42, 23, 25, 38, 46, 34, 58, 24, 69, 12, 72, 0, 69, -15, 71, -28, 65, -38, 54, -35, 37, -23, 21)
+closed = true
+width = 8.745
+default_color = Color(0, 0.6117647, 1, 1)
+joint_mode = 2
+antialiased = true
+script = ExtResource("8_ko8o3")
