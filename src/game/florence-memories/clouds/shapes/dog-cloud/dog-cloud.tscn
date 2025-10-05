@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dwafuug7oubye"]
 
 [ext_resource type="Script" uid="uid://dtetvg1t02xgs" path="res://clouds/cloud_shape.gd" id="1_shape"]
-[ext_resource type="Texture2D" uid="uid://dgborsbspousc" path="res://clouds/shapes/dog-cloud/dog-1.png" id="2_yp0rm"]
+[ext_resource type="Texture2D" uid="uid://bjxox4twikkuu" path="res://clouds/assets/dog-cloud.png" id="2_0p3oy"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_default.tscn" id="3_0p3oy"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_oval.tscn" id="4_f3h3p"]
 [ext_resource type="PackedScene" uid="uid://cdqyu2whskues" path="res://clouds/prefabs/cloud_vertical.tscn" id="5_3old1"]
@@ -9,63 +9,70 @@
 
 [node name="DogCloudShape" type="Node2D"]
 script = ExtResource("1_shape")
+cloud_image = ExtResource("2_0p3oy")
 
-[node name="Dog1" type="Sprite2D" parent="."]
+[node name="DogCloud" type="Sprite2D" parent="."]
 visible = false
-scale = Vector2(0.45962736, 0.45962733)
-texture = ExtResource("2_yp0rm")
+position = Vector2(9, 2)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_0p3oy")
 
 [node name="Cloud" parent="." instance=ExtResource("3_0p3oy")]
-position = Vector2(-41, -50)
+position = Vector2(-47, -48)
 
 [node name="Cloud2" parent="." instance=ExtResource("4_f3h3p")]
-position = Vector2(-72, -34)
+position = Vector2(-55, -31)
 
 [node name="Cloud3" parent="." instance=ExtResource("4_f3h3p")]
-position = Vector2(-45, -55)
+position = Vector2(-29, 52)
 
 [node name="Cloud4" parent="." instance=ExtResource("3_0p3oy")]
-position = Vector2(-13, -18)
+position = Vector2(-1, 11)
 
 [node name="Cloud5" parent="." instance=ExtResource("4_f3h3p")]
-position = Vector2(-35, -19)
+position = Vector2(48, 53)
 
 [node name="Cloud6" parent="." instance=ExtResource("3_0p3oy")]
-position = Vector2(10, 18)
+position = Vector2(50, -13)
 
 [node name="Cloud7" parent="." instance=ExtResource("4_f3h3p")]
-position = Vector2(23, -17)
+position = Vector2(-22, -12)
 
 [node name="Cloud8" parent="." instance=ExtResource("5_3old1")]
-position = Vector2(64, -38.999996)
+position = Vector2(79, -25)
 rotation = 0.39803776
 
 [node name="Cloud9" parent="." instance=ExtResource("5_3old1")]
-position = Vector2(-22, 25)
+position = Vector2(-32, 10)
 
 [node name="Cloud10" parent="." instance=ExtResource("5_3old1")]
-position = Vector2(61, 43)
+position = Vector2(61, 17)
 rotation = -0.45377567
 
 [node name="Cloud11" parent="." instance=ExtResource("3_0p3oy")]
-position = Vector2(-4, -7)
+position = Vector2(-3, -19)
 
 [node name="Cloud12" parent="." instance=ExtResource("4_f3h3p")]
-position = Vector2(37, -2)
+position = Vector2(29, -17)
 
 [node name="Cloud13" parent="." instance=ExtResource("4_f3h3p")]
-position = Vector2(39, 18)
+position = Vector2(48, 25)
+
+[node name="Cloud14" parent="." instance=ExtResource("4_f3h3p")]
+position = Vector2(32, 9)
+
+[node name="Cloud15" parent="." instance=ExtResource("4_f3h3p")]
+position = Vector2(-17, 35)
+
+[node name="Cloud16" parent="." instance=ExtResource("4_f3h3p")]
+position = Vector2(-33, -53)
 
 [node name="HighlightLines" type="Line2D" parent="."]
 position = Vector2(3, 0)
-points = PackedVector2Array(-34, 60, -38, 45, -38, 26, -43, 10, -50, -7, -66, -21, -85, -19, -96, -28, -96, -37, -72, -48, -70, -58, -65, -66, -51, -69, -36, -65, -25, -50, -16, -40, 4, -29, 38, -25, 49, -35, 59, -51, 66, -62, 77, -75, 79, -64, 73, -43, 65, -21, 60, 7, 67, 40, 82, 58, 77, 76, 64, 77, 58, 64, 42, 47, 38, 28, 23, 30, 7, 33, -10, 29, -14, 55, -25, 64)
+points = PackedVector2Array(-54, 62, -55, 56, -45, 45, -42, 21, -50, 9, -53, -18, -77, -21, -85, -31, -87, -43, -70, -49, -67, -59, -58, -66, -42, -68, -24, -65, -13, -51, -10, -34, 10, -28, 45, -29, 57, -29, 68, -25, 76, -41, 72, -56, 86, -57, 94, -39, 90, -22, 77, -10, 82, 5, 76, 23, 81, 38, 77, 56, 69, 64, 44, 64, 25, 63, 24, 51, 33, 42, 23, 28, 14, 32, -4, 30, -4, 48, -12, 66, -26, 70)
 closed = true
 width = 8.745
 default_color = Color(0, 0.6117647, 1, 1)
 joint_mode = 2
 antialiased = true
 script = ExtResource("7_highlight")
-
-[node name="Line2D" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 0, 10)
-default_color = Color(1, 0, 0, 1)

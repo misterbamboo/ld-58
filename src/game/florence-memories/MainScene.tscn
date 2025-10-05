@@ -1,16 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddksst3cw4wam"]
+[gd_scene load_steps=7 format=3 uid="uid://ddksst3cw4wam"]
 
-[ext_resource type="PackedScene" uid="uid://dwafuug7oubye" path="res://clouds/shapes/dog-cloud/dog_cloud.tscn" id="1_3mqji"]
+[ext_resource type="PackedScene" uid="uid://dwafuug7oubye" path="res://clouds/shapes/dog-cloud/dog-cloud.tscn" id="1_3mqji"]
 [ext_resource type="Script" uid="uid://cwchnxb0a6n5d" path="res://clouds/cloud_spawner.gd" id="2_rf2cd"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_default.tscn" id="3_a814b"]
 [ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_oval.tscn" id="4_5crlr"]
+[ext_resource type="PackedScene" uid="uid://kksanuhdvdff" path="res://clouds/shapes/tricycle-cloud/tricycle-cloud.tscn" id="5_a814b"]
+[ext_resource type="PackedScene" uid="uid://44gee11omn7r" path="res://clouds/shapes/dino-cloud/dino-cloud.tscn" id="6_5crlr"]
 
 [node name="MainScene" type="Node2D"]
 
 [node name="CloudSpawner" type="Node2D" parent="."]
 script = ExtResource("2_rf2cd")
 cloud_scenes = Array[PackedScene]([ExtResource("3_a814b"), ExtResource("4_5crlr")])
-shape_scenes = Array[PackedScene]([ExtResource("1_3mqji")])
-spawn_y_min = 10.0
-spawn_y_max = 300.0
+shape_scenes = Array[PackedScene]([ExtResource("1_3mqji"), ExtResource("5_a814b"), ExtResource("6_5crlr")])
+spawn_y_min = 50.0
+spawn_y_max = 500.0
 metadata/_custom_type_script = "uid://cwchnxb0a6n5d"

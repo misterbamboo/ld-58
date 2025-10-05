@@ -3,8 +3,8 @@ class_name CloudSpawner
 
 @export var cloud_scenes: Array[PackedScene] = []
 @export var shape_scenes: Array[PackedScene] = []
-@export var min_cloud_interval: float = 2.0
-@export var max_cloud_interval: float = 6.0
+@export var min_cloud_interval: float = 4.0
+@export var max_cloud_interval: float = 10.0
 @export var spawn_y_min: float = -100.0
 @export var spawn_y_max: float = 100.0
 @export var min_lifespan: float = 30.0
@@ -14,6 +14,7 @@ var cloud_spawn_timer: float = 0.0
 var next_cloud_spawn_time: float = 0.0
 var screen_size: Vector2 = Vector2.ZERO
 var spawn_shape_next: bool = false
+var shapes_to_spawn: int = 0
 
 var pending_clouds: Array[Cloud] = []
 var pending_shapes: Array[CloudShape] = []
@@ -25,8 +26,11 @@ func _ready():
 	spawn_initial_entities()
 
 func spawn_initial_entities():
-	spawn_shape()
-	for i in range(9):
+	# Spawn 2-3 shapes initially for spread
+	for i in range(randi_range(1, 3)):
+		spawn_shape()
+
+	for i in range(randi_range(8, 12)):
 		spawn_cloud()
 
 func _process(delta):
@@ -42,10 +46,20 @@ func update_spawn_timer(delta: float):
 
 func spawn_next_entity():
 	if spawn_shape_next:
-		spawn_shape()
+		# Spawn 2-3 shapes for spread
+		for i in range(shapes_to_spawn):
+			spawn_shape()
 		spawn_shape_next = false
+		shapes_to_spawn = 0
 	else:
-		spawn_cloud()
+		# Sometimes spawn 2-3 clouds at once for ambiguity
+		var burst_count = 1
+		var rand = randf()
+		if rand < 0.1:  # 10% chance for burst
+			burst_count = 2
+
+		for i in range(burst_count):
+			spawn_cloud()
 
 func spawn_shape():
 	if shape_scenes.is_empty():
@@ -117,3 +131,4 @@ func initialize_shape(shape: CloudShape):
 
 func _on_shape_vanished(data: Dictionary):
 	spawn_shape_next = true
+	shapes_to_spawn = randi_range(2, 3)

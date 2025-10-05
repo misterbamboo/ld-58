@@ -7,10 +7,17 @@ var speed: float
 var direction: int = 0
 var meet_at_pos: Vector2
 var meet_in_time: float = 0.0
+var spawn_delay: float = 0.0
 var is_managed_by_shape: bool = false
 
 var internal_time: float = 0.0
 var lifespan: float = 0.0
+
+var force_fadeout: bool = false
+var fadeout_start_time: float = 0.0
+
+var force_fade_in: bool = false
+var fade_in_start_time: float = 0.0
 
 var initial_offset_pos: Vector2 = Vector2.ZERO
 var initial_offset_rotation: float = 0.0
@@ -27,11 +34,16 @@ func _ready():
 	ready_flag = true
 
 func _process(delta):
-	if not is_managed_by_shape:
-		internal_time = clamp(internal_time + delta, 0.0, lifespan)
+	internal_time = internal_time + delta
 
+	check_fade_in_start()
 	update_position()
 	check_if_vanished()
+
+func check_fade_in_start():
+	if not force_fade_in and ready_to_show():
+		force_fade_in = true
+		fade_in_start_time = get_current_time()
 
 func update_position():
 	var current_time = get_current_time()
@@ -47,14 +59,6 @@ func update_position():
 	var local_position = lerp(start, end, t)
 
 	position = local_position + initial_offset_pos
-	# if is_managed_by_shape:
-	# 	var parent_shape = get_parent() as CloudShape
-	# 	if parent_shape:
-	# 		rotation = initial_offset_rotation
-	# 	else:
-	# 		position = local_position
-	# else:
-	# 	position = local_position
 
 func get_current_time() -> float:
 	if is_managed_by_shape:
@@ -62,6 +66,9 @@ func get_current_time() -> float:
 		if parent_shape:
 			return parent_shape.get_internal_time()
 	return internal_time
+	
+func ready_to_show() -> bool:
+	return internal_time > 0
 
 func check_if_vanished():
 	var current_time = get_current_time()
@@ -90,15 +97,41 @@ func get_meet_at_pos() -> Vector2:
 func is_ready() -> bool:
 	return ready_flag
 
+func trigger_fadeout() -> void:
+	force_fadeout = true
+	fadeout_start_time = get_current_time()
+
+func is_force_fadeout() -> bool:
+	return force_fadeout
+
+func get_fadeout_time() -> float:
+	return get_current_time() - fadeout_start_time
+
+func is_force_fade_in() -> bool:
+	return force_fade_in
+
+func get_fade_in_time() -> float:
+	return get_current_time() - fade_in_start_time
+
+func get_alpha() -> float:
+	var alpha_node = find_child("CloudAlpha")
+	if alpha_node and alpha_node is Sprite2D:
+		return alpha_node.modulate.a
+	return 1.0
+
+func is_faded_out() -> bool:
+	return get_alpha() <= 0.01
+
 func set_managed_by_shape(managed: bool) -> void:
 	is_managed_by_shape = managed
 
-func initialize(meeting_pos: Vector2, spawn_direction: int, spawn_lifespan: float, spawn_meet_in_time: float) -> void:
+func initialize(meeting_pos: Vector2, spawn_direction: int, spawn_lifespan: float, spawn_meet_in_time: float, delay: float = 0.0) -> void:
 	speed = randf_range(min_speed, max_speed)
 	direction = 1 if randf() > 0.5 else -1
 	lifespan = spawn_lifespan
 	meet_in_time = spawn_meet_in_time
-	internal_time = 0.0
+	spawn_delay = delay
+	internal_time = -spawn_delay
 
 	if is_managed_by_shape:
 		initial_offset_pos = position

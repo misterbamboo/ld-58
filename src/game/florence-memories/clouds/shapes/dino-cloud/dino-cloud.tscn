@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://44gee11omn7r"]
+
+[ext_resource type="Script" uid="uid://dtetvg1t02xgs" path="res://clouds/cloud_shape.gd" id="1_4buuv"]
+[ext_resource type="Texture2D" uid="uid://cr3s425hruhkt" path="res://clouds/assets/dinosaur-cloud.png" id="2_1rmsa"]
+[ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_default.tscn" id="3_glgmc"]
+[ext_resource type="PackedScene" path="res://clouds/prefabs/cloud_oval.tscn" id="4_jgvy2"]
+[ext_resource type="PackedScene" uid="uid://cdqyu2whskues" path="res://clouds/prefabs/cloud_vertical.tscn" id="5_kjpfc"]
+[ext_resource type="Script" uid="uid://3cwvwcqjval4" path="res://clouds/cloud_highlight.gd" id="6_c17cv"]
+
+[node name="DinoCloudShape" type="Node2D"]
+script = ExtResource("1_4buuv")
+cloud_image = ExtResource("2_1rmsa")
+
+[node name="DinoCloud" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(9, 2)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_1rmsa")
+
+[node name="Cloud" parent="." instance=ExtResource("3_glgmc")]
+position = Vector2(10, -25)
+
+[node name="Cloud2" parent="." instance=ExtResource("4_jgvy2")]
+position = Vector2(-63, -65)
+
+[node name="Cloud3" parent="." instance=ExtResource("4_jgvy2")]
+position = Vector2(37, 1)
+
+[node name="Cloud4" parent="." instance=ExtResource("3_glgmc")]
+position = Vector2(-15, 3)
+
+[node name="Cloud5" parent="." instance=ExtResource("4_jgvy2")]
+position = Vector2(-35, 48)
+
+[node name="Cloud6" parent="." instance=ExtResource("3_glgmc")]
+position = Vector2(49, 12)
+
+[node name="Cloud9" parent="." instance=ExtResource("5_kjpfc")]
+position = Vector2(-45, -29)
+
+[node name="Cloud12" parent="." instance=ExtResource("4_jgvy2")]
+position = Vector2(91, 24)
+
+[node name="Cloud13" parent="." instance=ExtResource("4_jgvy2")]
+position = Vector2(25, 51)
+
+[node name="Cloud7" parent="." instance=ExtResource("4_jgvy2")]
+position = Vector2(-20, 27)
+
+[node name="Cloud8" parent="." instance=ExtResource("4_jgvy2")]
+position = Vector2(23, 29)
+
+[node name="HighlightLines" type="Line2D" parent="."]
+position = Vector2(3, 0)
+points = PackedVector2Array(-65, 57, -64, 47, -56, 39, -53, 25, -60, 15, -66, -5, -66, -18, -64, -46, -79, -44, -89, -46, -96, -55, -96, -64, -85, -74, -78, -84, -67, -89, -55, -90, -43, -83, -38, -71, -35, -45, -33, -27, -29, -22, -16, -30, 0, -34, 24, -32, 39, -24, 51, -15, 60, -5, 70, 6, 84, 12, 100, 14, 115, 9, 121, 13, 112, 30, 93, 40, 71, 39, 42, 32, 45, 44, 47, 56, 38, 64, 26, 64, 18, 57, 2, 52, 7, 37, -9, 37, -6, 48, -9, 60, -20, 66, -34, 65, -40, 60, -56, 61)
+closed = true
+width = 8.745
+default_color = Color(0, 0.6117647, 1, 1)
+joint_mode = 2
+antialiased = true
+script = ExtResource("6_c17cv")

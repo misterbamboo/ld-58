@@ -1,6 +1,8 @@
 extends Node2D
 class_name CloudShape
 
+@export var cloud_image: Texture2D
+
 @export var min_lifespan: float = 30.0
 @export var max_lifespan: float = 90.0
 @export var drift_speed: float = 0.5
@@ -14,6 +16,7 @@ var has_vanished: bool = false
 
 var ready_flag: bool = false
 var clouds_initialized: bool = false
+var is_fading_out: bool = false
 
 var highlight_window_before_meet: float = 2.5
 var highlight_window_after_meet: float = 2.5
@@ -42,12 +45,11 @@ func initialize(meeting_pos: Vector2, spawn_direction: int, spawn_lifespan: floa
 	meet_at_pos = meeting_pos
 	internal_time = 0.0
 
-	# Don't initialize children yet - wait for them to be ready first
-
 func initialize_child_clouds(meeting_pos: Vector2, spawn_direction: int, meet_in_time: float):
 	for cloud in clouds:
 		var child_lifespan = randf_range(min_lifespan * 1.25, lifespan * 1.25)
-		cloud.initialize(Vector2.ZERO, spawn_direction, child_lifespan, meet_in_time)
+		var spawn_delay = randf_range(0, child_lifespan/3)
+		cloud.initialize(Vector2.ZERO, spawn_direction, child_lifespan, meet_in_time, spawn_delay)
 
 func _process(delta):
 	if not clouds_initialized:
@@ -79,10 +81,31 @@ func check_if_lifetime_ended():
 	if has_vanished:
 		return
 
-	if internal_time >= lifespan:
-		has_vanished = true
-		MessageBus.publish("shape_vanished", {"shape": self})
-		queue_free()
+	if should_start_fadeout():
+		start_fadeout()
+		return
+
+	if is_fading_out and all_clouds_faded():
+		destroy_shape()
+
+func should_start_fadeout() -> bool:
+	return internal_time >= lifespan and not is_fading_out
+
+func start_fadeout():
+	is_fading_out = true
+	for cloud in clouds:
+		cloud.trigger_fadeout()
+
+func all_clouds_faded() -> bool:
+	for cloud in clouds:
+		if not cloud.is_faded_out():
+			return false
+	return true
+
+func destroy_shape():
+	has_vanished = true
+	MessageBus.publish("shape_vanished", {"shape": self})
+	queue_free()
 
 func get_internal_time() -> float:
 	return internal_time
