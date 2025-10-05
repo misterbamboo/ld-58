@@ -1,7 +1,10 @@
 extends Control
 
 const MAX_MEMORY_SLOTS: int = 12
-const ANIMATION_DURATION: float = 0.7
+const ANIMATION_DURATION: float = 1.5
+const WAIT_AFTER_FADEOUT: float = 1.0
+const CURVE_HEIGHT: float = 100.0
+const MAX_FLYING_SPRITE_SIZE: float = 150.0
 
 var memory_slots: Array[Texture2D] = []
 var next_slot_index: int = 0
@@ -9,6 +12,7 @@ var next_slot_index: int = 0
 func _ready() -> void:
 	initialize_memory_slots()
 	MessageBus.subscribe("highlight_clicked", _on_highlight_clicked)
+	MessageBus.subscribe("shape_fully_faded", _on_shape_fully_faded)
 
 func initialize_memory_slots() -> void:
 	memory_slots.resize(MAX_MEMORY_SLOTS)
@@ -16,40 +20,53 @@ func initialize_memory_slots() -> void:
 func _on_highlight_clicked(data: Dictionary) -> void:
 	var shape = data.get("shape") as CloudShape
 	if shape and has_available_slot():
-		capture_memory(shape)
+		shape.capture_memory()
 
-func capture_memory(shape: CloudShape) -> void:
-	var texture = shape.get_cloud_image()
-	if texture == null:
-		return
+func _on_shape_fully_faded(data: Dictionary) -> void:
+	print("[MemoryCollector] Received shape_fully_faded event")
+	var texture = data.get("texture") as Texture2D
+	var start_pos = data.get("position") as Vector2
 
-	var start_pos = shape.global_position
-	shape.capture_memory()
+	print("[MemoryCollector] Texture: ", texture, " | Position: ", start_pos, " | Has slot: ", has_available_slot())
 
-	spawn_and_animate_memory(texture, start_pos)
+	if texture and has_available_slot():
+		print("[MemoryCollector] Waiting ", WAIT_AFTER_FADEOUT, " seconds before spawning sprite")
+		await get_tree().create_timer(WAIT_AFTER_FADEOUT).timeout
+		spawn_and_animate_memory(texture, start_pos)
 
 func spawn_and_animate_memory(texture: Texture2D, start_pos: Vector2) -> void:
 	var flying_sprite = create_flying_sprite(texture, start_pos)
 	get_tree().root.add_child(flying_sprite)
 
+	print("[MemoryCollector] Added flying sprite to scene tree")
+
 	var slot_index = get_next_available_slot()
 	var target_pos = get_memory_slot_global_position(slot_index)
 
-	animate_to_book(flying_sprite, target_pos, slot_index, texture)
+	print("[MemoryCollector] Animating to slot ", slot_index, " at position: ", target_pos)
+
+	animate_with_curve(flying_sprite, target_pos, slot_index, texture)
 
 func create_flying_sprite(texture: Texture2D, start_pos: Vector2) -> Sprite2D:
 	var sprite = Sprite2D.new()
 	sprite.texture = texture
 	sprite.global_position = start_pos
-	sprite.z_index = 100
+	print("[MemoryCollector] Created flying sprite at position: ", start_pos)
 	return sprite
 
-func animate_to_book(sprite: Sprite2D, target_pos: Vector2, slot_index: int, texture: Texture2D) -> void:
+func animate_with_curve(sprite: Sprite2D, target_pos: Vector2, slot_index: int, texture: Texture2D) -> void:
+	var start_pos = sprite.global_position
 	var tween = create_tween()
-	tween.set_ease(Tween.EASE_IN_OUT)
-	tween.set_trans(Tween.TRANS_CUBIC)
 
-	tween.tween_property(sprite, "global_position", target_pos, ANIMATION_DURATION)
+	var arc_peak_y = min(start_pos.y, target_pos.y) - CURVE_HEIGHT
+	var mid_pos = Vector2((start_pos.x + target_pos.x) / 2.0, arc_peak_y)
+
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+
+	tween.tween_property(sprite, "global_position", mid_pos, ANIMATION_DURATION / 2.0)
+	tween.tween_property(sprite, "global_position", target_pos, ANIMATION_DURATION / 2.0)
+
 	tween.parallel().tween_property(sprite, "scale", Vector2(0.3, 0.3), ANIMATION_DURATION)
 
 	tween.finished.connect(func(): on_animation_complete(sprite, slot_index, texture))

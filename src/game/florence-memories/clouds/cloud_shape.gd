@@ -21,6 +21,9 @@ var is_fading_out: bool = false
 var highlight_window_before_meet: float = 2.5
 var highlight_window_after_meet: float = 2.5
 
+var capture_texture: Texture2D = null
+var capture_position: Vector2 = Vector2.ZERO
+
 func _ready():
 	load_cloud_children()
 	mark_clouds_as_managed()
@@ -125,6 +128,17 @@ func is_ready() -> bool:
 	return true
 
 func capture_memory() -> void:
+	capture_texture = cloud_image
+	capture_position = global_position
+	print("[CloudShape] capture_memory() called - texture: ", capture_texture, " position: ", capture_position)
+
+	# Publish event immediately - sprite will appear and animate while clouds fade
+	MessageBus.publish("shape_fully_faded", {
+		"shape": self,
+		"texture": capture_texture,
+		"position": capture_position
+	})
+
 	start_fadeout()
 
 func get_cloud_image() -> Texture2D:
