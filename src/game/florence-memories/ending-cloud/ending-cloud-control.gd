@@ -5,7 +5,6 @@ var is_timer_active: bool = false
 var all_faded_in: bool = false
 var cloud_count: int = 0
 var total_fade_time: float = 0.0
-var click_area: Area2D
 
 # Centering variables
 var virtual_center: Vector2 = Vector2.ZERO
@@ -32,6 +31,14 @@ func _input(event: InputEvent) -> void:
 			print("[EndingCloudControl] DEBUG: Ctrl+P pressed - triggering animation")
 			_on_all_memories_collected({})
 
+	# Handle mouse clicks on ending cloud formation
+	if all_faded_in and event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			var mouse_pos = get_viewport().get_mouse_position()
+			if is_point_in_virtual_bounds(mouse_pos):
+				print("[EndingCloudControl] Ending cloud clicked! Starting fade out...")
+				fade_out_all_clouds()
+
 func _process(delta: float) -> void:
 	# Update centering (always active for smooth repositioning)
 	update_centering(delta)
@@ -44,7 +51,7 @@ func _process(delta: float) -> void:
 	# Check if all clouds have faded in
 	if not all_faded_in and timer >= total_fade_time:
 		all_faded_in = true
-		create_click_area()
+		print("[EndingCloudControl] All clouds faded in - formation is now clickable")
 
 func get_timer() -> float:
 	return timer
@@ -53,30 +60,16 @@ func _on_all_memories_collected(data: Dictionary) -> void:
 	print("[EndingCloudControl] All memories collected! Starting animation...")
 	is_timer_active = true
 
-func create_click_area() -> void:
-	# Calculate bounds from all child cloud positions
-	var bounds = calculate_clickable_bounds()
+func is_point_in_virtual_bounds(screen_point: Vector2) -> bool:
+	# Convert screen point to local space
+	var local_point = screen_point - global_position
 
-	# Create clickable area
-	click_area = Area2D.new()
-	add_child(click_area)
+	# Get virtual bounds
+	var bounds = calculate_virtual_bounds()
 
-	var collision_shape = CollisionShape2D.new()
-	var rect_shape = RectangleShape2D.new()
-
-	var width = bounds.max_x - bounds.min_x
-	var height = bounds.max_y - bounds.min_y
-	var center_x = (bounds.min_x + bounds.max_x) / 2.0
-	var center_y = (bounds.min_y + bounds.max_y) / 2.0
-
-	rect_shape.size = Vector2(width, height)
-	collision_shape.shape = rect_shape
-	collision_shape.position = Vector2(center_x, center_y)
-
-	click_area.add_child(collision_shape)
-	click_area.input_event.connect(_on_click_area_input_event)
-
-	print("[EndingCloudControl] Click area created at: ", center_x, ",", center_y, " size: ", width, "x", height)
+	# Check if point is within bounds
+	return (local_point.x >= bounds.min_x and local_point.x <= bounds.max_x and
+			local_point.y >= bounds.min_y and local_point.y <= bounds.max_y)
 
 func update_centering(delta: float) -> void:
 	# Calculate virtual bounds and center
@@ -120,20 +113,9 @@ func calculate_virtual_bounds() -> Dictionary:
 		"max_y": max_y
 	}
 
-func calculate_clickable_bounds() -> Dictionary:
-	# Reuse virtual bounds calculation
-	return calculate_virtual_bounds()
-
-func _on_click_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton:
-		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-			print("[EndingCloudControl] Ending cloud clicked! Starting fade out...")
-			fade_out_all_clouds()
-
 func fade_out_all_clouds() -> void:
-	# Disable click area
-	if click_area:
-		click_area.queue_free()
+	# Disable further clicks
+	all_faded_in = false
 
 	# Start fade out for all clouds
 	for child in get_children():

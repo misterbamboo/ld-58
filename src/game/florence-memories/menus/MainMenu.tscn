@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cogcyo5nevq4p"]
+[gd_scene load_steps=9 format=3 uid="uid://cogcyo5nevq4p"]
 
 [ext_resource type="Texture2D" uid="uid://q31kmqbxfxnv" path="res://backgrounds/BG_Menu.png" id="1_ct8su"]
 [ext_resource type="Script" uid="uid://c278ojwua15js" path="res://menus/main_menu.gd" id="1_ot3ob"]
 [ext_resource type="Texture2D" uid="uid://bngd0u254l1yj" path="res://backgrounds/BG_Tuto.png" id="3_rmsp1"]
+[ext_resource type="Texture2D" uid="uid://bk0xja5bi0l1d" path="res://backgrounds/BG_Credits.png" id="4_7fxis"]
 [ext_resource type="Texture2D" uid="uid://bnfcq3a5fv2og" path="res://buttons/Exit_Bouton.png" id="4_lb38e"]
 [ext_resource type="Texture2D" uid="uid://cwb68oe7t3qr0" path="res://buttons/Exit_Bouton_Selected.png" id="5_7fxis"]
 [ext_resource type="Texture2D" uid="uid://h1osl1weyefv" path="res://buttons/Play_Bouton.png" id="6_k15nl"]
@@ -36,6 +37,12 @@ stretch_mode = 6
 [node name="BG_Menu" type="TextureRect" parent="AspectRatioContainer"]
 layout_mode = 2
 texture = ExtResource("1_ct8su")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="BG_Credits" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("4_7fxis")
 expand_mode = 1
 stretch_mode = 6
 
