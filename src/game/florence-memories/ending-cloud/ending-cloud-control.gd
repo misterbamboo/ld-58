@@ -7,6 +7,11 @@ var cloud_count: int = 0
 var total_fade_time: float = 0.0
 var click_area: Area2D
 
+# Centering variables
+var virtual_center: Vector2 = Vector2.ZERO
+var target_position: Vector2 = Vector2.ZERO
+const LERP_SPEED: float = 2.0
+
 func _ready() -> void:
 	# Subscribe to all memories collected event
 	MessageBus.subscribe(CloudEvents.ALL_MEMORIES_COLLECTED, _on_all_memories_collected)
@@ -28,6 +33,9 @@ func _input(event: InputEvent) -> void:
 			_on_all_memories_collected({})
 
 func _process(delta: float) -> void:
+	# Update centering (always active for smooth repositioning)
+	update_centering(delta)
+
 	if not is_timer_active:
 		return
 
@@ -70,7 +78,28 @@ func create_click_area() -> void:
 
 	print("[EndingCloudControl] Click area created at: ", center_x, ",", center_y, " size: ", width, "x", height)
 
-func calculate_clickable_bounds() -> Dictionary:
+func update_centering(delta: float) -> void:
+	# Calculate virtual bounds and center
+	var bounds = calculate_virtual_bounds()
+
+	var virtual_width = bounds.max_x - bounds.min_x
+	var virtual_height = bounds.max_y - bounds.min_y
+	virtual_center = Vector2(
+		(bounds.min_x + bounds.max_x) / 2.0,
+		(bounds.min_y + bounds.max_y) / 2.0
+	)
+
+	# Get screen center
+	var screen_size = get_viewport().get_visible_rect().size
+	var screen_center = screen_size / 2.0
+
+	# Calculate target position (screen center - virtual center offset)
+	target_position = screen_center - virtual_center
+
+	# Smoothly lerp to target position
+	position = position.lerp(target_position, delta * LERP_SPEED)
+
+func calculate_virtual_bounds() -> Dictionary:
 	var min_x = INF
 	var max_x = -INF
 	var min_y = INF
@@ -90,6 +119,10 @@ func calculate_clickable_bounds() -> Dictionary:
 		"min_y": min_y,
 		"max_y": max_y
 	}
+
+func calculate_clickable_bounds() -> Dictionary:
+	# Reuse virtual bounds calculation
+	return calculate_virtual_bounds()
 
 func _on_click_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 	if event is InputEventMouseButton:
