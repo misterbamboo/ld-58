@@ -34,6 +34,8 @@ var pending_clouds: Array[Cloud] = []
 var pending_shapes: Array[CloudShape] = []
 var occupied_regions: Array[OccupiedRegion] = []
 var last_viewport_size: Vector2 = Vector2.ZERO
+var fast_spawn_mode: bool = false
+var game_started: bool = false
 
 func _ready():
 	screen_size = get_viewport_rect().size
@@ -45,6 +47,8 @@ func _ready():
 	# Subscribe to events
 	MessageBus.subscribe(CloudEvents.SHAPE_VANISHED, _on_shape_vanished)
 	MessageBus.subscribe(CloudEvents.SHAPE_FULLY_FADED, _on_shape_captured)
+	MessageBus.subscribe(CloudEvents.GAME_RESET, _on_game_reset)
+	MessageBus.subscribe(CloudEvents.GAME_START, _on_game_start)
 
 	# Start timers at 0 (will spawn immediately on first _process)
 	shape_spawn_timer = SHAPE_SPAWN_INTERVAL
@@ -54,6 +58,13 @@ func _process(delta):
 	check_viewport_resize()
 	update_spawn_timers(delta)
 	process_pending_initialization()
+
+func _input(event: InputEvent) -> void:
+	# Debug: Ctrl+A to toggle fast spawn mode
+	if event is InputEventKey:
+		if event.pressed and event.keycode == KEY_A and event.ctrl_pressed:
+			fast_spawn_mode = !fast_spawn_mode
+			print("[CloudSpawner] Fast spawn mode: ", "ENABLED" if fast_spawn_mode else "DISABLED")
 
 func check_viewport_resize():
 	var current_size = get_viewport().get_visible_rect().size
@@ -87,15 +98,20 @@ func get_cloud_spawn_bounds() -> Dictionary:
 	}
 
 func update_spawn_timers(delta: float):
-	# Update shape spawn timer (every 30 seconds)
-	shape_spawn_timer += delta
-	if shape_spawn_timer >= SHAPE_SPAWN_INTERVAL:
-		spawn_shape()
-		shape_spawn_timer = 0.0
+	# Use faster intervals when in fast spawn mode
+	var shape_interval = 1.0 if fast_spawn_mode else SHAPE_SPAWN_INTERVAL
+	var cloud_interval = CLOUD_SPAWN_INTERVAL  # Keep cloud spawning normal
 
-	# Update cloud spawn timer (every 2 seconds)
+	# Update shape spawn timer (only if game has started)
+	if game_started:
+		shape_spawn_timer += delta
+		if shape_spawn_timer >= shape_interval:
+			spawn_shape()
+			shape_spawn_timer = 0.0
+
+	# Update cloud spawn timer (every 2 seconds - always active for atmosphere)
 	cloud_spawn_timer += delta
-	if cloud_spawn_timer >= CLOUD_SPAWN_INTERVAL:
+	if cloud_spawn_timer >= cloud_interval:
 		# Spawn 2-3 clouds for atmosphere
 		var cloud_count = randi_range(2, 3)
 		for i in range(cloud_count):
@@ -203,6 +219,37 @@ func _on_shape_captured(data: Dictionary):
 			available_shape_scenes.remove_at(i)
 			print("[CloudSpawner] Removed captured shape from pool: ", shape_scene)
 			break
+
+func _on_game_reset(data: Dictionary):
+	print("[CloudSpawner] Game reset! Resetting spawner state...")
+
+	# Remove all active clouds and shapes from scene
+	for child in get_children():
+		if child is CloudShape or child is Cloud:
+			child.queue_free()
+
+	# Restore all shape scenes (all 12 memories available again)
+	available_shape_scenes = shape_scenes.duplicate()
+
+	# Clear collision tracking
+	occupied_regions.clear()
+
+	# Clear pending queues
+	pending_clouds.clear()
+	pending_shapes.clear()
+
+	# Reset timers to spawn immediately
+	shape_spawn_timer = SHAPE_SPAWN_INTERVAL
+	cloud_spawn_timer = CLOUD_SPAWN_INTERVAL
+
+	# Disable shape spawning until next GAME_START
+	game_started = false
+
+	print("[CloudSpawner] Reset complete - ", available_shape_scenes.size(), " shapes available")
+
+func _on_game_start(data: Dictionary):
+	print("[CloudSpawner] Game started! Enabling CloudShape spawning...")
+	game_started = true
 
 func release_occupied_region(shape: CloudShape):
 	for i in range(occupied_regions.size() - 1, -1, -1):

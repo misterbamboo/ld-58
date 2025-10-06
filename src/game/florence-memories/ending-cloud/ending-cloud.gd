@@ -22,16 +22,28 @@ var scale_speed: float = 1.0
 var rotation_speed: float = 1.0
 
 func _ready() -> void:
-	# Store initial values
+	# Store initial values from scene (only once)
 	initial_scale = scale
 	initial_rotation = rotation
+
+	# Register in static array (only happens once)
+	cloud_index = clouds.size()
+	clouds.append(self)
+
+	# Initialize for first time
+	init()
+
+func init() -> void:
+	# Reset to initial transform values
+	scale = initial_scale
+	rotation = initial_rotation
 
 	# Start invisible
 	modulate.a = 0.0
 
-	# Register in static array
-	cloud_index = clouds.size()
-	clouds.append(self)
+	# Reset state flags
+	is_faded_in = false
+	is_fading_out = false
 
 	# Calculate when this cloud should start fading in
 	fade_in_start_time = cloud_index * FADE_DURATION

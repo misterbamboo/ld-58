@@ -3,6 +3,7 @@ extends Node2D
 var timer: float = 0.0
 var is_timer_active: bool = false
 var all_faded_in: bool = false
+var is_fading_out: bool = false
 var cloud_count: int = 0
 var total_fade_time: float = 0.0
 
@@ -32,7 +33,7 @@ func _input(event: InputEvent) -> void:
 			_on_all_memories_collected({})
 
 	# Handle mouse clicks on ending cloud formation
-	if all_faded_in and event is InputEventMouseButton:
+	if all_faded_in and !is_fading_out and event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 			var mouse_pos = get_viewport().get_mouse_position()
 			if is_point_in_virtual_bounds(mouse_pos):
@@ -58,6 +59,7 @@ func get_timer() -> float:
 
 func _on_all_memories_collected(data: Dictionary) -> void:
 	print("[EndingCloudControl] All memories collected! Starting animation...")
+	reset_state()
 	is_timer_active = true
 
 func is_point_in_virtual_bounds(screen_point: Vector2) -> bool:
@@ -114,8 +116,9 @@ func calculate_virtual_bounds() -> Dictionary:
 	}
 
 func fade_out_all_clouds() -> void:
-	# Disable further clicks
+	# Block any further clicks or fadeout calls
 	all_faded_in = false
+	is_fading_out = true
 
 	# Start fade out for all clouds
 	for child in get_children():
@@ -125,3 +128,18 @@ func fade_out_all_clouds() -> void:
 	# Wait for fade out to complete, then publish game completed event
 	await get_tree().create_timer(1.0).timeout  # FADE_OUT_DURATION
 	MessageBus.publish(CloudEvents.GAME_COMPLETED, {})
+
+	# Stop timer and wait for next game_completed event
+	is_timer_active = false
+
+func reset_state() -> void:
+	# Reset all state variables for new iteration
+	timer = 0.0
+	all_faded_in = false
+	is_timer_active = false
+	is_fading_out = false
+
+	# Reset all child clouds to initial state
+	for child in get_children():
+		if child is Sprite2D and child.has_method("init"):
+			child.init()

@@ -15,6 +15,7 @@ func _ready() -> void:
 	initialize_memory_slots()
 	MessageBus.subscribe(CloudEvents.HIGHLIGHT_CLICKED, _on_highlight_clicked)
 	MessageBus.subscribe(CloudEvents.SHAPE_FULLY_FADED, _on_shape_fully_faded)
+	MessageBus.subscribe(CloudEvents.GAME_RESET, _on_game_reset)
 
 func initialize_memory_slots() -> void:
 	memory_slots.resize(MAX_MEMORY_SLOTS)
@@ -43,12 +44,13 @@ func spawn_and_animate_memory(texture: Texture2D, start_pos: Vector2) -> void:
 
 	print("[MemoryCollector] Added flying sprite to scene tree")
 
-	var slot_index = get_next_available_slot()
-	var target_pos = get_memory_slot_global_position(slot_index)
+	# Get target position for animation (will determine actual slot on completion)
+	var next_slot = get_next_available_slot()
+	var target_pos = get_memory_slot_global_position(next_slot)
 
-	print("[MemoryCollector] Animating to slot ", slot_index, " at position: ", target_pos)
+	print("[MemoryCollector] Animating to next available slot position: ", target_pos)
 
-	animate_with_curve(flying_sprite, target_pos, slot_index, texture)
+	animate_with_curve(flying_sprite, target_pos, texture)
 
 func create_flying_sprite(texture: Texture2D, start_pos: Vector2) -> Sprite2D:
 	var sprite = Sprite2D.new()
@@ -64,7 +66,7 @@ func create_flying_sprite(texture: Texture2D, start_pos: Vector2) -> Sprite2D:
 	print("[MemoryCollector] Created flying sprite at position: ", start_pos, " with initial scale: ", initial_scale)
 	return sprite
 
-func animate_with_curve(sprite: Sprite2D, target_pos: Vector2, slot_index: int, texture: Texture2D) -> void:
+func animate_with_curve(sprite: Sprite2D, target_pos: Vector2, texture: Texture2D) -> void:
 	var start_pos = sprite.global_position
 	var initial_scale = sprite.scale
 	var tween = create_tween()
@@ -82,12 +84,23 @@ func animate_with_curve(sprite: Sprite2D, target_pos: Vector2, slot_index: int, 
 	var final_scale = initial_scale * 0.3
 	tween.parallel().tween_property(sprite, "scale", final_scale, ANIMATION_DURATION)
 
-	tween.finished.connect(func(): on_animation_complete(sprite, slot_index, texture))
+	tween.finished.connect(func(): on_animation_complete(sprite, texture))
 
-func on_animation_complete(sprite: Sprite2D, slot_index: int, texture: Texture2D) -> void:
+func on_animation_complete(sprite: Sprite2D, texture: Texture2D) -> void:
+	# Check if this texture was already collected during animation (race condition protection)
+	if is_memory_already_collected(texture):
+		print("[MemoryCollector] Duplicate memory detected - swallowing animation without filling slot")
+		sprite.queue_free()
+		return
+
+	# Get the actual slot index when we're ready to fill it
+	var slot_index = get_next_available_slot()
+
 	fill_memory_slot(slot_index, texture)
 	sprite.queue_free()
 	next_slot_index += 1
+
+	print("[MemoryCollector] Filled slot ", slot_index, " | Total collected: ", next_slot_index)
 
 	# Check if all memories are collected
 	if next_slot_index >= MAX_MEMORY_SLOTS:
@@ -136,3 +149,24 @@ func get_memory_data(slot_index: int):
 	if slot_index >= 0 and slot_index < memory_data_list.size():
 		return memory_data_list[slot_index]
 	return null
+
+func _on_game_reset(data: Dictionary):
+	print("[MemoryCollector] Game reset! Clearing all collected memories...")
+
+	# Reset state variables
+	next_slot_index = 0
+	collected_texture_paths.clear()
+
+	# Clear data arrays
+	memory_slots.clear()
+	memory_data_list.clear()
+	memory_slots.resize(MAX_MEMORY_SLOTS)
+	memory_data_list.resize(MAX_MEMORY_SLOTS)
+
+	# Clear UI - remove textures from all memory slots
+	for i in range(MAX_MEMORY_SLOTS):
+		var memory_node = get_memory_node_by_index(i)
+		if memory_node:
+			memory_node.texture = null
+
+	print("[MemoryCollector] Reset complete - ready for new game")
