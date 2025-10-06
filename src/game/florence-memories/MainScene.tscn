@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ddksst3cw4wam"]
+[gd_scene load_steps=23 format=3 uid="uid://ddksst3cw4wam"]
 
 [ext_resource type="PackedScene" uid="uid://dwafuug7oubye" path="res://clouds/cloud-shapes/dog-cloud.tscn" id="1_3mqji"]
 [ext_resource type="Script" uid="uid://cwchnxb0a6n5d" path="res://clouds/cloud_spawner.gd" id="2_rf2cd"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://bk3vl85ad74aj" path="res://clouds/cloud-shapes/star-cloud.tscn" id="16_xtmsi"]
 [ext_resource type="PackedScene" uid="uid://r3te2808goqh" path="res://clouds/cloud-shapes/strawberry-cloud.tscn" id="17_anuui"]
 [ext_resource type="PackedScene" uid="uid://ffosy5ouk40a" path="res://clouds/cloud-shapes/trefle-cloud.tscn" id="18_8qg48"]
+[ext_resource type="PackedScene" uid="uid://xtjb3h20thw3" path="res://ending-cloud/ending-cloud.tscn" id="22_8qg48"]
 
 [node name="MainScene" type="Control"]
 layout_mode = 3
@@ -60,3 +61,6 @@ grow_vertical = 0
 [node name="MainMenu" parent="." instance=ExtResource("10_8xkvn")]
 visible = false
 layout_mode = 1
+
+[node name="EndingCloud" parent="." instance=ExtResource("22_8qg48")]
+position = Vector2(583, 341)

@@ -1,0 +1,447 @@
+[gd_scene load_steps=5 format=3 uid="uid://xtjb3h20thw3"]
+
+[ext_resource type="Script" uid="uid://blk2anul1q61l" path="res://ending-cloud/ending-cloud-control.gd" id="1_gtn0t"]
+[ext_resource type="Texture2D" uid="uid://d3k3dlxywhqgq" path="res://clouds/assets/Cloud_2.png" id="1_itxg0"]
+[ext_resource type="Script" uid="uid://btuf5uiv2hdb4" path="res://ending-cloud/ending-cloud.gd" id="2_itxg0"]
+[ext_resource type="Texture2D" uid="uid://cwcv025mi34tp" path="res://clouds/assets/Cloud_3.png" id="3_2b4qd"]
+
+[node name="EndingCloud" type="Node2D"]
+script = ExtResource("1_gtn0t")
+
+[node name="Cloud1" type="Sprite2D" parent="."]
+position = Vector2(-43.199936, -110.81906)
+rotation = -0.48202914
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud2" type="Sprite2D" parent="."]
+position = Vector2(-28.199936, -111.81911)
+rotation = 0.34666437
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud3" type="Sprite2D" parent="."]
+position = Vector2(-36.199936, -93.81911)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud4" type="Sprite2D" parent="."]
+position = Vector2(-0.20018005, -99.81911)
+scale = Vector2(0.10937465, 0.10937465)
+texture = ExtResource("3_2b4qd")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud5" type="Sprite2D" parent="."]
+position = Vector2(25.800064, -108.81911)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud6" type="Sprite2D" parent="."]
+position = Vector2(30.800064, -89.819046)
+rotation = -0.7853982
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud7" type="Sprite2D" parent="."]
+position = Vector2(44.800064, -89.81911)
+rotation = 0.7853982
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud8" type="Sprite2D" parent="."]
+position = Vector2(47.800064, -108.81911)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud9" type="Sprite2D" parent="."]
+position = Vector2(-131.20001, -31.819092)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud10" type="Sprite2D" parent="."]
+position = Vector2(-118.20001, -44.81909)
+rotation = 1.0936267
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud11" type="Sprite2D" parent="."]
+position = Vector2(-121.69, -16.439087)
+rotation = -1.0943215
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud12" type="Sprite2D" parent="."]
+position = Vector2(-86.20006, -30.819092)
+scale = Vector2(0.10937465, 0.10937465)
+texture = ExtResource("3_2b4qd")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud13" type="Sprite2D" parent="."]
+position = Vector2(-58.199997, -35.81909)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud14" type="Sprite2D" parent="."]
+position = Vector2(-51.199997, -16.819092)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud15" type="Sprite2D" parent="."]
+position = Vector2(-31.199997, -34.81909)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud16" type="Sprite2D" parent="."]
+position = Vector2(-23.40001, -15.985779)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud17" type="Sprite2D" parent="."]
+position = Vector2(-5.199997, -33.81909)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud18" type="Sprite2D" parent="."]
+position = Vector2(3.5999908, -15.985779)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud19" type="Sprite2D" parent="."]
+position = Vector2(3.800003, -31.819092)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud20" type="Sprite2D" parent="."]
+position = Vector2(3.800003, -45.81909)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud21" type="Sprite2D" parent="."]
+position = Vector2(22.59999, -32.717896)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud22" type="Sprite2D" parent="."]
+position = Vector2(35.59999, -45.717896)
+rotation = 1.0936267
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud23" type="Sprite2D" parent="."]
+position = Vector2(32.11, -17.33789)
+rotation = -1.0943215
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud24" type="Sprite2D" parent="."]
+position = Vector2(63.800003, -45.81909)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud25" type="Sprite2D" parent="."]
+position = Vector2(61.800003, -30.819092)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud26" type="Sprite2D" parent="."]
+position = Vector2(83.59999, -34.019104)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud27" type="Sprite2D" parent="."]
+position = Vector2(92.39998, -16.185791)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud28" type="Sprite2D" parent="."]
+position = Vector2(92.59999, -32.019104)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud29" type="Sprite2D" parent="."]
+position = Vector2(92.59999, -46.019104)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud30" type="Sprite2D" parent="."]
+position = Vector2(111.8, -32.81909)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud31" type="Sprite2D" parent="."]
+position = Vector2(120.633316, -15.185791)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud32" type="Sprite2D" parent="."]
+position = Vector2(120.83333, -45.019104)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud33" type="Sprite2D" parent="."]
+position = Vector2(130.8, -37.81909)
+rotation = 2.5569074
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud34" type="Sprite2D" parent="."]
+position = Vector2(129.8, -19.819092)
+rotation = -2.5569074
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="CloudLong35" type="Sprite2D" parent="."]
+position = Vector2(-33.199936, 40.180862)
+rotation = -2.8012536
+scale = Vector2(0.05, 0.10021641)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="CloudLong36" type="Sprite2D" parent="."]
+position = Vector2(-16.199936, 39.180954)
+rotation = 2.8012536
+scale = Vector2(0.05, 0.10021641)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud37" type="Sprite2D" parent="."]
+position = Vector2(-22.200058, 43.18094)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud38" type="Sprite2D" parent="."]
+position = Vector2(-1.4000092, 31.014221)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud39" type="Sprite2D" parent="."]
+position = Vector2(5.599991, 50.01422)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud40" type="Sprite2D" parent="."]
+position = Vector2(25.59999, 32.01422)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud41" type="Sprite2D" parent="."]
+position = Vector2(33.39998, 50.847534)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud42" type="Sprite2D" parent="."]
+position = Vector2(-122.20001, 106.76425)
+scale = Vector2(0.05, 0.07975259)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud43" type="Sprite2D" parent="."]
+position = Vector2(-90.2, 105.76425)
+scale = Vector2(0.05, 0.075846314)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="CloudLong44" type="Sprite2D" parent="."]
+position = Vector2(-112.199936, 108.18092)
+rotation = 2.8012536
+scale = Vector2(0.05, 0.10021641)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="CloudLong45" type="Sprite2D" parent="."]
+position = Vector2(-101.57024, 108.637405)
+rotation = -2.8012536
+scale = Vector2(0.05, 0.10021641)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud46" type="Sprite2D" parent="."]
+position = Vector2(-76.40001, 103.980896)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud47" type="Sprite2D" parent="."]
+position = Vector2(-67.60002, 121.81421)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud48" type="Sprite2D" parent="."]
+position = Vector2(-67.40001, 105.980896)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud49" type="Sprite2D" parent="."]
+position = Vector2(-67.40001, 91.980896)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud50" type="Sprite2D" parent="."]
+position = Vector2(-48.40001, 105.99252)
+scale = Vector2(0.05, 0.078860864)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud51" type="Sprite2D" parent="."]
+position = Vector2(-16.40001, 105.49252)
+scale = Vector2(0.05, 0.07690773)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="CloudLong52" type="Sprite2D" parent="."]
+position = Vector2(-38.39995, 107.6375)
+rotation = 2.8012536
+scale = Vector2(0.05, 0.10021641)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="CloudLong53" type="Sprite2D" parent="."]
+position = Vector2(-27.770248, 108.09398)
+rotation = -2.8012536
+scale = Vector2(0.05, 0.10021641)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud52" type="Sprite2D" parent="."]
+position = Vector2(9.800003, 106.18091)
+scale = Vector2(0.10937465, 0.10937465)
+texture = ExtResource("3_2b4qd")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud53" type="Sprite2D" parent="."]
+position = Vector2(38.800003, 104.18091)
+scale = Vector2(0.05, 0.07690773)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud54" type="Sprite2D" parent="."]
+position = Vector2(49.800003, 113.180916)
+rotation = -0.5691593
+scale = Vector2(0.05, 0.07690773)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud55" type="Sprite2D" parent="."]
+position = Vector2(45.800003, 92.18088)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.07690773)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud56" type="Sprite2D" parent="."]
+position = Vector2(55.800003, 100.18088)
+rotation = 0.7853982
+scale = Vector2(0.05, 0.05523654)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud57" type="Sprite2D" parent="."]
+position = Vector2(69.8, 106.18091)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud58" type="Sprite2D" parent="."]
+position = Vector2(84.59999, 103.980896)
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud59" type="Sprite2D" parent="."]
+position = Vector2(93.39998, 121.81421)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud60" type="Sprite2D" parent="."]
+position = Vector2(93.59999, 105.980896)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud61" type="Sprite2D" parent="."]
+position = Vector2(93.59999, 91.980896)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud62" type="Sprite2D" parent="."]
+position = Vector2(121.79994, 93.18091)
+rotation = 1.5707964
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud64" type="Sprite2D" parent="."]
+position = Vector2(122.8, 120.18088)
+rotation = 1.3875368
+scale = Vector2(0.05, 0.06575518)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")
+
+[node name="Cloud63" type="Sprite2D" parent="."]
+position = Vector2(122.78584, 108.96522)
+rotation = 2.3212879
+scale = Vector2(0.05, 0.081702836)
+texture = ExtResource("1_itxg0")
+script = ExtResource("2_itxg0")

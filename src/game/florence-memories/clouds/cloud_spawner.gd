@@ -9,11 +9,14 @@ class OccupiedRegion:
 @export var cloud_scenes: Array[PackedScene] = []
 @export var shape_scenes: Array[PackedScene] = []
 
-const SHAPE_PADDING_SIDES: float = 0.05  # 5% padding for left, top, right
-const SHAPE_PADDING_BOTTOM: float = 0.15  # 15% padding for bottom
+const SHAPE_PADDING_SIDES: float = 0.10  # 10% padding for left, top, right
+const SHAPE_PADDING_BOTTOM: float = 0.25  # 25% padding for bottom
+
 const CLOUD_PADDING_RIGHT: float = -0.05  # Allow 5% outside right edge
-const SHAPE_SPAWN_INTERVAL: float = 30.0
+
+const SHAPE_SPAWN_INTERVAL: float = 20.0
 const CLOUD_SPAWN_INTERVAL: float = 2.0
+
 const CLOUD_LIFESPAN: float = 30.0
 
 const CLOUD_MIN_SCALE: float = 1.0

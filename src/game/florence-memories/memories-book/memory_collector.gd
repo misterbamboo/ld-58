@@ -89,6 +89,11 @@ func on_animation_complete(sprite: Sprite2D, slot_index: int, texture: Texture2D
 	sprite.queue_free()
 	next_slot_index += 1
 
+	# Check if all memories are collected
+	if next_slot_index >= MAX_MEMORY_SLOTS:
+		print("[MemoryCollector] All memories collected!")
+		MessageBus.publish(CloudEvents.ALL_MEMORIES_COLLECTED, {})
+
 func fill_memory_slot(slot_index: int, texture: Texture2D) -> void:
 	memory_slots[slot_index] = texture
 	collected_texture_paths[texture.resource_path] = true

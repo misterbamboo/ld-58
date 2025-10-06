@@ -99,11 +99,14 @@ func ready_to_show() -> bool:
 
 func check_if_vanished():
 	var current_time = get_current_time()
-	if current_time >= lifespan:
-		if not is_managed_by_shape:
+	if not is_managed_by_shape:
+		# Individual clouds: wait for fadeout to complete before destroying
+		if current_time >= lifespan and is_faded_out():
 			MessageBus.publish(CloudEvents.CLOUD_VANISHED, {"cloud": self})
 			queue_free()
-		else:
+	else:
+		# Managed clouds: just hide when time is up
+		if current_time >= lifespan:
 			visible = false
 
 func set_direction(new_direction: int) -> void:
