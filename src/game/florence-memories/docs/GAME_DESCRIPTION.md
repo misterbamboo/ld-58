@@ -1,146 +1,132 @@
 # Florence Memories
 
-## A Meditative Journey Through Childhood
+Was created with infinite love during Ludum Dare 58.
 
-Florence lies in a hospital bed, watching clouds drift past her window. Each cloud formation carries a memory — fragments of joy, wonder, and love from her childhood. As the morphine flows through her veins, the boundaries between sky and memory blur, and she reaches out to collect these precious moments one last time.
+## A Love Letter to my Baby Girl (from MrBamboo)
 
-This is Florence's final gift to herself: a collection of everything that made life beautiful.
+This game was made with all the love in my heart for Florence, my beautiful 4-month-old daughter. Every cloud, every memory, every gentle moment is for her — a gift from her papa to celebrate the joy she brings to our lives.
 
----
-
-## Theme: Collection
-
-"Florence Memories" embodies the **Ludum Dare 58 theme of Collection** on multiple levels:
-
-**Literal Collection**: Players gather 12 unique cloud formations, each representing a cherished childhood memory. These memories fill a hand-drawn book, creating a tangible record of Florence's life.
-
-**Emotional Collection**: Beyond the mechanical act of clicking, players are collecting moments of wonder — the feeling of chasing butterflies, the warmth of family road trips, the comfort of a teddy bear's smile. Each memory's description invites reflection on the universal experiences that shape us.
-
-**Temporal Collection**: The game explores how we collect and preserve our past as we face our future. Florence isn't gathering new experiences; she's reaching back to hold onto what made her who she is. The act of collection becomes an act of remembrance, acceptance, and celebration.
-
-**Meditative Collection**: Unlike frantic collection mechanics, this game asks players to slow down, watch, and wait for the right moment. The clouds drift at their own pace, and some shapes will slip away if you're not attentive. This mirrors how memories themselves can fade if we don't take time to acknowledge them.
+Florence, when you're old enough to play this someday, know that you were loved from your very first breath. This is our family's story: the things we love, the adventures we dream of taking you on, and the memories we're already making together.
 
 ---
 
 ## The Story
 
-Florence is in her final hours, surrounded by the gentle hum of hospital equipment and the endless sky outside her window. Through the morphine haze, the clouds take on familiar shapes — a dog that looks just like the puppy she cuddled during rainstorms, a butterfly like the ones she chased through summer gardens, a star like the shooting star her whole family wished upon around the campfire.
+On a beautiful sunny day, our little family decided to go hiking together. Mom, dad, and baby Florence ventured into nature, enjoying the fresh air and the warmth of the sun. After walking along the trail, we found the perfect spot — a soft patch of grass overlooking the sky.
 
-Each cloud formation is fleeting, drifting across the sky for only a moment before dissolving back into formless white. Florence knows she must be quick, must reach out and touch each memory while she still can. Click. A teddy bear with a missing ear. Click. The taste of strawberries shared with her parents. Click. Grandpa's voice saying "luck finds those who keep smiling."
+We laid down together, Florence nestled safely between us, and simply watched the clouds drift by.
 
-As each memory is captured, it flies into her memory book — a small, worn journal resting on her bedside table. One by one, the pages fill with drawings and words, a physical manifestation of a life well-lived.
+As we gazed up at the endless blue, something magical happened. The clouds began to form shapes — a teddy bear like the one in Florence's nursery, a butterfly dancing on the breeze, a rainbow promising adventure. Each shape sparked a memory, a dream, or a moment of love from our family's journey together.
 
-When all twelve memories are gathered, something magical happens. The clouds themselves form Florence's face — a young girl, smiling, forever frozen in the joy of childhood. She reaches out one last time...
+**"Look, Florence,"** we whispered, pointing at each formation as it appeared. **"Can you see it?"**
 
-And the sky welcomes her home.
+This game captures that perfect afternoon — a family lying in the grass, collecting memories from the clouds, and cherishing the simple joy of being together. It's about the wonder in Florence's eyes as she discovers the world, and the overwhelming love we feel watching her grow.
+
+---
+
+## Theme: Collection
+
+"Florence Memories" embodies the **Ludum Dare 58 theme of Collection** through the lens of family and shared wonder:
+
+**Collecting Moments Together**: Like any family watching clouds drift by, we're collecting fleeting moments of beauty and imagination. Each cloud shape is a treasure we discover together — mom, dad, and Florence.
+
+**Building Our Family's Story**: Each memory represents something our family loves or dreams of sharing with Florence. From adventures in nature (like our hiking trip!) to cozy moments at home, we're gathering the pieces of the life we're building together.
+
+**Preserving Wonder**: The act of watching clouds mirrors that perfect afternoon lying in the grass with Florence — slowing down, being present, and marveling at the world together. The collection mechanic asks players to be patient and attentive, just like we were with our baby girl.
+
+**Sharing Love Through Shapes**: Through these 12 cloud formations, we're celebrating the world we want Florence to know — from Quebec's beautiful Rocher Percé to the simple joy of strawberries, from cuddly teddy bears to magical rainbows. Each shape is something we hope to share with her as she grows.
+
+---
+
+## How Our Memories Were Made
+
+Each cloud formation in the game represents a piece of our family's heart.
+
+As you collect each memory, you're experiencing what we felt that day — pure joy, boundless love, and the magic of seeing the world through a child's wondering eyes.
 
 ---
 
 ## How to Play
 
 ### Getting Started
-1. Click **Play** to begin your journey
-2. Read the tutorial screen (click anywhere to dismiss)
-3. The sky begins to fill with drifting clouds
+1. Click **Play** to join our family's cloud-watching adventure
+2. Read the tutorial screen (it tells our hiking story!)
+3. Lie back in the grass with us and watch the clouds drift by
 
-### Collecting Memories
+### Collecting Cloud Memories
 
-**Watch the Sky**: Clouds continuously drift across the screen from right to left. Most are simple atmospheric clouds, but some will slowly form into recognizable shapes.
+**Watch the Sky Together**: Clouds drift gently across the screen, just like they did that afternoon. Most are just passing clouds, but some will form into special shapes — the things our family saw and loved.
 
-**Wait for the Highlight**: When a cloud formation fully materializes, a **glowing outline** will appear around it for approximately **5 seconds**. This is your window to capture the memory.
+**Wait for the Magic**: When a cloud formation fully appears, a **glowing outline** will surround it for about **5 seconds**. This is the moment to capture that shared memory!
 
-**Click to Collect**: Click anywhere on the highlighted shape during this brief window. The formation will gently fade away, and the memory will fly into your book.
+**Click to Remember**: Click anywhere on the highlighted shape. Watch as it gently fades and the memory flies into your family scrapbook — just like Florence's eyes widening as she notices each new cloud.
 
-**Track Your Progress**: A small book icon appears in the bottom-right corner of the screen. Click it to expand and see which memories you've collected. Each memory has a title and a heartfelt description from Florence's perspective.
+**Share Your Collection**: A small book icon sits in the bottom-right corner. Click it to expand and see which memories you've gathered. Each one has a title and a heartfelt description — little love notes about our family's journey.
 
-**Patience is Key**: Cloud shapes spawn approximately every 20 seconds. Some memories may take a while to appear, so settle in and enjoy the meditative atmosphere. There are 12 unique memories to collect in total.
+**Enjoy the Moment**: New cloud shapes appear approximately every 20 seconds. Like lying in the grass watching the sky, there's no rush. The joy is in being present together. There are 12 unique memories to find.
 
-### Memory Shapes to Collect
+### The Special Ending
 
-- Teddy Bear
-- Butterfly
-- Road Trip Car
-- Dinosaur
-- Dog
-- Horseshoe (from riding lessons)
-- Flower
-- Rainbow
-- Rocher Perce (a famous Quebec landmark)
-- Star
-- Strawberry
-- Lucky Clover
+After collecting all 12 memories, watch as the clouds form one final, magical surprise — a tribute to the star of our hiking adventure. When the animation completes, click on it to see the credits and celebrate this collection of love.
 
-### The Ending
-
-Once you've collected all 12 memories, watch as the clouds form one final, special shape. When the animation completes, click on the formation to see the credits and complete Florence's journey.
-
-After the credits, click anywhere to return to the main menu and experience the story again.
+Click anywhere after the credits to return to the main menu and relive that perfect afternoon all over again.
 
 ---
 
 ## Tips for Players
 
-**Don't Rush**: This is a contemplative experience. Let the clouds wash over you. Read each memory's description in the expanded book view.
+**Embrace the Peace**: This game is like that afternoon in the grass — peaceful, gentle, and meant to be savored with people you love.
 
-**You Can't Fail**: Every memory will eventually appear, and missed opportunities will come around again. There's no time limit or penalty for missing a click.
+**No Pressure**: Every memory will appear eventually, just like clouds keep drifting by. Take your time and enjoy the sky.
 
-**Expand the Book**: Click the small book icon to view your collected memories in detail. Each description is a small story worth reading.
+**Read the Memories**: Click the book icon to expand it and read each description. They're little stories about our family and the love we share with Florence.
 
-**Listen to the Music**: The ambient soundtrack was carefully composed to evoke nostalgia and peace. Consider playing with headphones for the full experience.
+**Enjoy the Journey**: This takes about 5-10 minutes, but feel free to pause and breathe. The clouds will still be there when you return, just like they were waiting for us that day.
 
-**Take Breaks**: The game takes approximately 5-10 minutes to complete, but there's no timer. Step away if needed — the clouds will still be drifting when you return.
+**Share the Experience**: If you're a parent who's laid in the grass with your little one, or if you remember doing this as a child, you'll recognize the wonder in these clouds.
 
 ---
 
 ## Design Philosophy
 
-"Florence Memories" was created during Ludum Dare 58's 48-hour game jam with a specific vision: to create a space for reflection and gentle emotion in a medium often dominated by action and challenge.
+"Florence Memories" was created during Ludum Dare 58's 48-hour game jam, inspired by a perfect afternoon with our baby girl.
 
-We wanted players to feel:
-- The bittersweet beauty of nostalgia
-- The quiet dignity of saying goodbye
-- The importance of pausing to remember
+We wanted to create:
+- **A moment of peace** — like lying in the grass with your family, watching clouds drift by
+- **A celebration of parenthood** — the joy of discovery, the love that overflows, the beauty of simple moments
+- **A family keepsake** — something Florence can experience someday and remember: "This was us, watching the world together"
 
-Every system was designed with intention:
-- Clouds drift slowly to encourage patience
-- The 5-second highlight window creates moments of presence and attention
-- The memory descriptions are written in Florence's voice to build connection
-- The ending animation rewards completion with one final moment of wonder
+Every detail was chosen with love:
+- Clouds drift slowly, like that lazy afternoon when time stood still
+- The 5-second collection window creates presence — being truly in the moment, pointing at the sky, sharing wonder
+- The memory descriptions are love letters from mom and dad to Florence
+- The ending animation celebrates the greatest treasure of all — our baby girl
 
-This game is our love letter to the small moments that make life worth collecting.
+This game is our family's story of a perfect day, but we hope it reminds you of your own precious moments — lying in the grass, watching clouds, and feeling grateful for the people beside you.
 
 ---
 
 ## Technical Achievement
 
-Built in **Godot Engine 4** using **GDScript**, "Florence Memories" showcases several technical accomplishments within the 48-hour constraint:
+Built in **Godot Engine 4** using **GDScript** during a 48-hour game jam while caring for a 4-month-old baby (yes, really! Florence was very patient with papa):
 
-- **Dynamic Cloud System**: Individual clouds and cloud formations move with realistic depth perception and parallax
-- **Event-Driven Architecture**: A custom MessageBus system coordinates all game systems through decoupled events
-- **Procedural Spawning**: Smart collision avoidance ensures cloud shapes never overlap
-- **Responsive UI**: The memory book dynamically scales and adapts to different screen sizes
-- **Smooth Animations**: Tweened transitions for memory collection, menu screens, and ending sequence
-- **Complete Game Loop**: Main menu, tutorial, gameplay, ending animation, credits, and full reset/replay functionality
+- **Dynamic Cloud System**: Realistic cloud movement with depth perception
+- **Event-Driven Architecture**: Custom MessageBus for clean, decoupled game systems
+- **Smart Spawning**: Collision avoidance ensures cloud shapes never overlap
+- **Responsive Design**: Adapts beautifully to any screen size
+- **Smooth Animations**: Polished transitions throughout the entire experience
+- **Complete Game Loop**: Tutorial, gameplay, ending sequence, credits, and replay functionality
 
 ---
 
 ## Credits
 
-**Florence Memories** was created with care during Ludum Dare 58.
+**2D Art & Visual Design**: Maë (aka Ediacara) — A talented 2D artist who spent the entire weekend with me designing these wonderful assets. Thank you for bringing our clouds to life! 🎨
 
-For full credits and team information, complete the game to view the credits screen.
+**Music**: Palash Sunvaiya — For creating beautiful, free music and sharing it with the world at [Pixabay](https://pixabay.com/users/p4lash-24520502/). Your work made this game special. Donation sent with gratitude! 🎵
 
----
+**Game Design & Programming**: MrBamboo — Just enjoying game jam time with friends! 🎮
 
-## A Final Note
-
-If you've lost someone, or if you find yourself looking back more than forward, we hope Florence's story resonates with you.
-
-Remember: the moments we collect — the small joys, the shared laughter, the quiet comforts — these are what make us who we are. They're worth holding onto, worth celebrating, worth one last look at the sky to see if the clouds remember too.
-
-Thank you for watching the clouds with Florence.
-
----
-
-*Made with love for Ludum Dare 58*
-*Theme: Collection*
+**Special Thanks To**:
+- **Florence's Mama** — For love, support, and sharing that perfect hiking day
+- **Our Little Florence** — For being the inspiration 
